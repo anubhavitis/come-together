@@ -1,447 +1,376 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useEffect, useCallback, useMemo } from "react";
-import { usePhase1, useUpsertPhase1 } from "@/hooks/use-phase1";
-import { useAutoSave } from "@/hooks/use-auto-save";
-import {
-  LikertScale,
-  RatingSlider,
-  FreeTextPrompt,
-  CollapsibleSection,
-  SaveIndicator,
-} from "@/components/shared";
-import { swemwbsItems } from "@/data/swemwbs-items";
-import type {
-  Swemwbs,
-  InnerLandscapeText,
-  InnerLandscapeRatings,
-  Intentions,
-  Context,
-  SubstanceType,
-} from "@/types/journey";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { useConversation } from "@/hooks/use-conversation";
+import type { ConversationMessage } from "@/types/journey";
 
 export const Route = createFileRoute("/journey/$id/phase1")({
-  component: Phase1Form,
+  component: Phase1Page,
 });
 
-const SUBSTANCE_OPTIONS: { value: SubstanceType; label: string }[] = [
-  { value: "psilocybin", label: "Psilocybin" },
-  { value: "lsd", label: "LSD" },
-  { value: "dmt", label: "DMT" },
-  { value: "ayahuasca", label: "Ayahuasca" },
-  { value: "mescaline", label: "Mescaline" },
-  { value: "mdma", label: "MDMA" },
-  { value: "ketamine", label: "Ketamine" },
-  { value: "other", label: "Other" },
-];
+// ---------------------------------------------------------------------------
+// Constants
+// ---------------------------------------------------------------------------
 
-const DEFAULT_SWEMWBS: Swemwbs = {
-  item1: undefined,
-  item2: undefined,
-  item3: undefined,
-  item4: undefined,
-  item5: undefined,
-  item6: undefined,
-  item7: undefined,
-};
+const MAX_QUESTIONS = 10;
 
-const DEFAULT_LANDSCAPE_TEXT: InnerLandscapeText = {
-  relationshipWithSelf: "",
-  prevalentEmotions: "",
-  currentFear: "",
-  currentGratitude: "",
-};
+// ---------------------------------------------------------------------------
+// ProgressBar -- thin accent-warm bar showing question progress
+// ---------------------------------------------------------------------------
 
-const DEFAULT_LANDSCAPE_RATINGS: InnerLandscapeRatings = {
-  connectedness: undefined,
-  clarity: undefined,
-  innerPeace: undefined,
-};
+interface ProgressBarProps {
+  current: number;
+  total: number;
+}
 
-const DEFAULT_INTENTIONS: Intentions = {
-  primary: "",
-  explore: "",
-  letGo: "",
-  fears: "",
-  success: "",
-};
+function ProgressBar({ current, total }: ProgressBarProps) {
+  const percent = Math.min((current / total) * 100, 100);
 
-const DEFAULT_CONTEXT: Context = {
-  date: "",
-  substance: "psilocybin",
-  dose: "",
-  setting: "",
-  sitter: "",
-};
-
-function Phase1Form() {
-  const { id } = Route.useParams();
-  const { data: phase1, isLoading } = usePhase1(id);
-  const { mutateAsync } = useUpsertPhase1();
-
-  const [swemwbs, setSwemwbs] = useState<Swemwbs>(DEFAULT_SWEMWBS);
-  const [landscapeText, setLandscapeText] = useState<InnerLandscapeText>(
-    DEFAULT_LANDSCAPE_TEXT,
+  return (
+    <div
+      role="progressbar"
+      aria-valuenow={current}
+      aria-valuemin={0}
+      aria-valuemax={total}
+      aria-label={`Question ${current} of ${total}`}
+      className="h-[3px] w-full overflow-hidden rounded-full bg-card"
+    >
+      <div
+        className="h-full rounded-full bg-accent-warm transition-[width] duration-500 ease-out"
+        style={{ width: `${percent}%` }}
+      />
+    </div>
   );
-  const [landscapeRatings, setLandscapeRatings] =
-    useState<InnerLandscapeRatings>(DEFAULT_LANDSCAPE_RATINGS);
-  const [intentions, setIntentions] = useState<Intentions>(DEFAULT_INTENTIONS);
-  const [context, setContext] = useState<Context>(DEFAULT_CONTEXT);
-  const [completedAt, setCompletedAt] = useState<string | null>(null);
-  const [initialized, setInitialized] = useState(false);
+}
 
-  useEffect(() => {
-    if (phase1 && !initialized) {
-      setSwemwbs(phase1.swemwbs ?? DEFAULT_SWEMWBS);
-      setLandscapeText(phase1.innerLandscapeText ?? DEFAULT_LANDSCAPE_TEXT);
-      setLandscapeRatings(
-        phase1.innerLandscapeRatings ?? DEFAULT_LANDSCAPE_RATINGS,
-      );
-      setIntentions(phase1.intentions ?? DEFAULT_INTENTIONS);
-      setContext(phase1.context ?? DEFAULT_CONTEXT);
-      setCompletedAt(phase1.completedAt);
-      setInitialized(true);
-    }
-  }, [phase1, initialized]);
+// ---------------------------------------------------------------------------
+// LoadingIndicator -- three pulsing dots, reduced-motion safe
+// ---------------------------------------------------------------------------
 
-  // Mark as initialized even if no existing data (new journey)
-  useEffect(() => {
-    if (!isLoading && !phase1 && !initialized) {
-      setInitialized(true);
-    }
-  }, [isLoading, phase1, initialized]);
-
-  const formData = useMemo(
-    () => ({
-      swemwbs,
-      innerLandscapeText: landscapeText,
-      innerLandscapeRatings: landscapeRatings,
-      intentions,
-      context,
-    }),
-    [swemwbs, landscapeText, landscapeRatings, intentions, context],
+function LoadingIndicator() {
+  return (
+    <div aria-live="polite" className="flex flex-col items-center gap-4">
+      <div className="flex items-center gap-2 motion-safe:animate-pulse">
+        <span className="inline-block h-2 w-2 rounded-full bg-accent-warm opacity-60 motion-safe:animate-[pulse_1.4s_ease-in-out_infinite]" />
+        <span className="inline-block h-2 w-2 rounded-full bg-accent-warm opacity-60 motion-safe:animate-[pulse_1.4s_ease-in-out_0.2s_infinite]" />
+        <span className="inline-block h-2 w-2 rounded-full bg-accent-warm opacity-60 motion-safe:animate-[pulse_1.4s_ease-in-out_0.4s_infinite]" />
+      </div>
+      <p className="text-sm text-text-secondary">
+        <span className="motion-safe:hidden">Thinking...</span>
+        <span className="hidden motion-safe:inline">Reflecting...</span>
+      </p>
+    </div>
   );
+}
 
-  const onSave = useCallback(
-    async (data: typeof formData) => {
-      await mutateAsync({
-        journeyId: id,
-        ...data,
-        completedAt,
-      });
+// ---------------------------------------------------------------------------
+// UserInput -- textarea + send button inside a form
+// ---------------------------------------------------------------------------
+
+interface UserInputProps {
+  onSend: (text: string) => void;
+  disabled: boolean;
+}
+
+function UserInput({ onSend, disabled }: UserInputProps) {
+  const [text, setText] = useState("");
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Focus textarea when it mounts or becomes enabled
+  useEffect(() => {
+    if (!disabled && textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, [disabled]);
+
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      const trimmed = text.trim();
+      if (!trimmed || disabled) return;
+      onSend(trimmed);
+      setText("");
     },
-    [mutateAsync, id, completedAt],
+    [text, disabled, onSend],
   );
 
-  const { status } = useAutoSave({
-    data: formData,
-    onSave,
-    enabled: initialized,
-  });
-
-  const swemwbsAnswered = useMemo(
-    () => Object.values(swemwbs).filter((v) => v !== undefined).length,
-    [swemwbs],
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        const trimmed = text.trim();
+        if (!trimmed || disabled) return;
+        onSend(trimmed);
+        setText("");
+      }
+    },
+    [text, disabled, onSend],
   );
 
-  const handleComplete = async () => {
-    const now = new Date().toISOString();
-    setCompletedAt(now);
-    await mutateAsync({
-      journeyId: id,
-      ...formData,
-      completedAt: now,
-    });
-  };
+  return (
+    <form onSubmit={handleSubmit} className="w-full max-w-2xl space-y-4">
+      <textarea
+        ref={textareaRef}
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        onKeyDown={handleKeyDown}
+        disabled={disabled}
+        aria-label="Your response"
+        placeholder="Take your time..."
+        rows={4}
+        className="w-full resize-none rounded-[16px] border-2 border-card bg-surface px-5 py-4 text-base text-text-primary placeholder-text-secondary transition-colors focus:border-accent-warm focus:outline-none disabled:opacity-50"
+      />
+      <div className="flex justify-end">
+        <button
+          type="submit"
+          disabled={disabled || text.trim().length === 0}
+          className="rounded-[16px] bg-accent-warm px-8 py-3 text-sm font-medium text-background transition-colors hover:bg-accent-warm/90 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          Continue
+        </button>
+      </div>
+    </form>
+  );
+}
 
-  const handleUncomplete = async () => {
-    setCompletedAt(null);
-    await mutateAsync({
-      journeyId: id,
-      ...formData,
-      completedAt: null,
-    });
-  };
+// ---------------------------------------------------------------------------
+// IntentionDisplay -- prominent intention sentence on completion
+// ---------------------------------------------------------------------------
 
-  if (isLoading) {
-    return <p className="text-text-secondary">Loading...</p>;
+interface IntentionDisplayProps {
+  intention: string;
+  journeyId: string;
+}
+
+function IntentionDisplay({ intention, journeyId }: IntentionDisplayProps) {
+  return (
+    <div className="flex flex-col items-center gap-8 px-4 text-center">
+      <p className="text-sm uppercase tracking-widest text-text-secondary">
+        Your intention
+      </p>
+      <p className="max-w-xl text-3xl font-light italic leading-relaxed text-accent-warm md:text-4xl">
+        {intention}
+      </p>
+      <p className="max-w-sm text-xs text-text-secondary">
+        This sentence was distilled from your conversation. Carry it with you.
+      </p>
+      <Link
+        to="/journey/$id"
+        params={{ id: journeyId }}
+        className="mt-4 rounded-[16px] bg-accent-warm px-8 py-3 text-sm font-medium text-background transition-colors hover:bg-accent-warm/90"
+      >
+        Back to journey
+      </Link>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// ExchangeView -- single Q&A exchange with fade transition
+// ---------------------------------------------------------------------------
+
+interface ExchangeViewProps {
+  question: string;
+  previousAnswer: string | null;
+  questionNumber: number;
+}
+
+function ExchangeView({ question, previousAnswer, questionNumber }: ExchangeViewProps) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    // Trigger entrance animation after mount
+    const timer = requestAnimationFrame(() => setVisible(true));
+    return () => cancelAnimationFrame(timer);
+  }, []);
+
+  return (
+    <div
+      key={questionNumber}
+      className={`flex max-w-2xl flex-col items-center gap-8 px-4 text-center transition-[opacity,transform] duration-400 ease-out motion-reduce:transition-none ${
+        visible
+          ? "translate-y-0 opacity-100"
+          : "translate-y-2 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100"
+      }`}
+    >
+      {previousAnswer && (
+        <p className="max-w-lg text-sm italic text-text-secondary">
+          &ldquo;{previousAnswer}&rdquo;
+        </p>
+      )}
+      <p className="text-xl font-light leading-relaxed text-text-primary md:text-2xl">
+        {question}
+      </p>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// CompletedConversation -- shows all Q&A pairs (expandable)
+// ---------------------------------------------------------------------------
+
+interface CompletedConversationProps {
+  messages: ConversationMessage[];
+}
+
+function CompletedConversation({ messages }: CompletedConversationProps) {
+  const [expanded, setExpanded] = useState(false);
+
+  if (!expanded) {
+    return (
+      <button
+        type="button"
+        onClick={() => setExpanded(true)}
+        className="text-xs text-text-secondary transition-colors hover:text-accent-warm"
+      >
+        View conversation
+      </button>
+    );
   }
 
   return (
-    <div className="space-y-6 pb-12">
-      <div className="flex items-center justify-between">
-        <div>
+    <div className="mt-8 w-full max-w-2xl space-y-4">
+      <button
+        type="button"
+        onClick={() => setExpanded(false)}
+        className="text-xs text-text-secondary transition-colors hover:text-accent-warm"
+      >
+        Hide conversation
+      </button>
+      <div className="space-y-3 rounded-[20px] bg-surface p-6">
+        {messages.map((msg, idx) => (
+          <div
+            key={idx}
+            className={`text-sm leading-relaxed ${
+              msg.role === "assistant"
+                ? "text-text-primary"
+                : "italic text-text-secondary"
+            }`}
+          >
+            <span className="mr-2 text-xs uppercase tracking-wider text-text-secondary opacity-60">
+              {msg.role === "assistant" ? "Q" : "A"}
+            </span>
+            {msg.content}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Phase1Page -- main route component
+// ---------------------------------------------------------------------------
+
+function Phase1Page() {
+  const { id } = Route.useParams();
+  const {
+    messages,
+    currentQuestion,
+    isLoading,
+    isComplete,
+    intentionSentence,
+    error,
+    sendMessage,
+  } = useConversation(id);
+
+  // Derive the latest assistant message (current question text)
+  const latestAssistant = [...messages]
+    .reverse()
+    .find((m) => m.role === "assistant");
+
+  // Derive the previous user answer (to show above current question)
+  const userMessages = messages.filter((m) => m.role === "user");
+  const previousAnswer =
+    userMessages.length > 0 ? userMessages[userMessages.length - 1].content : null;
+
+  // -- Loading state (initial) --
+  if (!isComplete && messages.length === 0 && isLoading) {
+    return (
+      <div className="flex min-h-[calc(100dvh-56px)] flex-col items-center justify-center p-8">
+        <LoadingIndicator />
+      </div>
+    );
+  }
+
+  // -- Completed state --
+  if (isComplete && intentionSentence) {
+    return (
+      <div className="flex min-h-[calc(100dvh-56px)] flex-col items-center justify-center p-8">
+        <div className="mb-12 self-start">
           <Link
             to="/journey/$id"
             params={{ id }}
-            className="text-sm text-text-secondary hover:text-accent-warm"
+            className="text-sm text-text-secondary transition-colors hover:text-accent-warm"
           >
             &larr; Back to journey
           </Link>
-          <h1 className="mt-1 text-2xl font-bold">Setting the Compass</h1>
-          <p className="mt-1 text-sm text-text-secondary">
-            Prepare for your journey by reflecting on where you are now.
+        </div>
+        <IntentionDisplay intention={intentionSentence} journeyId={id} />
+        <CompletedConversation messages={messages} />
+      </div>
+    );
+  }
+
+  // -- Active conversation --
+  return (
+    <div className="flex min-h-[calc(100dvh-56px)] flex-col p-8 md:p-12">
+      {/* Header */}
+      <div className="mb-4">
+        <Link
+          to="/journey/$id"
+          params={{ id }}
+          className="text-sm text-text-secondary transition-colors hover:text-accent-warm"
+        >
+          &larr; Back to journey
+        </Link>
+      </div>
+
+      <div className="mb-2 text-center">
+        <h1 className="text-2xl font-semibold tracking-tight text-text-primary">
+          Come Together
+        </h1>
+        <p className="mt-1 text-sm text-text-secondary">
+          A conversation before your journey
+        </p>
+      </div>
+
+      {/* Progress bar */}
+      <div className="mx-auto mb-8 w-full max-w-2xl">
+        <ProgressBar current={currentQuestion} total={MAX_QUESTIONS} />
+        <p className="mt-2 text-center text-xs text-text-secondary">
+          {currentQuestion} of {MAX_QUESTIONS}
+        </p>
+      </div>
+
+      {/* Main exchange area */}
+      <div className="flex flex-1 flex-col items-center justify-center">
+        {isLoading ? (
+          <LoadingIndicator />
+        ) : latestAssistant ? (
+          <ExchangeView
+            question={latestAssistant.content}
+            previousAnswer={previousAnswer}
+            questionNumber={currentQuestion}
+          />
+        ) : null}
+      </div>
+
+      {/* Input area */}
+      {!isLoading && !isComplete && (
+        <div className="mt-8 flex justify-center">
+          <UserInput onSend={sendMessage} disabled={isLoading} />
+        </div>
+      )}
+
+      {/* Error display */}
+      {error && (
+        <div className="mt-4 text-center">
+          <p className="text-sm text-danger">{error}</p>
+          <p className="mt-1 text-xs text-text-secondary">
+            You can try sending your response again.
           </p>
         </div>
-        <SaveIndicator status={status} />
-      </div>
-
-      {/* Section A: SWEMWBS */}
-      <CollapsibleSection
-        title="How have you been feeling?"
-        whyText="These 7 questions are from the Short Warwick-Edinburgh Mental Wellbeing Scale, used in psychedelic research to measure baseline wellbeing. You'll answer these same questions after your experience to see what shifted."
-        progress={{ answered: swemwbsAnswered, total: 7 }}
-        defaultOpen
-      >
-        {swemwbsItems.map((item) => (
-          <LikertScale
-            key={item.id}
-            id={`swemwbs-${item.id}`}
-            label={item.text}
-            value={swemwbs[item.id as keyof Swemwbs]}
-            onChange={(val) =>
-              setSwemwbs((prev) => ({ ...prev, [item.id]: val }))
-            }
-            min={1}
-            max={5}
-            minLabel="None of the time"
-            maxLabel="All of the time"
-          />
-        ))}
-      </CollapsibleSection>
-
-      {/* Section B: Inner Landscape */}
-      <CollapsibleSection title="Where are you right now?">
-        <FreeTextPrompt
-          id="landscape-self"
-          label="What is your current relationship with yourself?"
-          value={landscapeText.relationshipWithSelf}
-          onChange={(val) =>
-            setLandscapeText((prev) => ({ ...prev, relationshipWithSelf: val }))
-          }
-        />
-        <FreeTextPrompt
-          id="landscape-emotions"
-          label="What emotions have been most present for you lately?"
-          value={landscapeText.prevalentEmotions}
-          onChange={(val) =>
-            setLandscapeText((prev) => ({ ...prev, prevalentEmotions: val }))
-          }
-        />
-        <FreeTextPrompt
-          id="landscape-fear"
-          label="What are you most afraid of right now?"
-          value={landscapeText.currentFear}
-          onChange={(val) =>
-            setLandscapeText((prev) => ({ ...prev, currentFear: val }))
-          }
-        />
-        <FreeTextPrompt
-          id="landscape-gratitude"
-          label="What are you most grateful for right now?"
-          value={landscapeText.currentGratitude}
-          onChange={(val) =>
-            setLandscapeText((prev) => ({ ...prev, currentGratitude: val }))
-          }
-        />
-
-        <RatingSlider
-          id="rating-connectedness"
-          label="How connected do you feel to the people in your life?"
-          value={landscapeRatings.connectedness}
-          onChange={(val) =>
-            setLandscapeRatings((prev) => ({ ...prev, connectedness: val }))
-          }
-          min={0}
-          max={10}
-        />
-        <RatingSlider
-          id="rating-clarity"
-          label="How much clarity do you feel about your life direction?"
-          value={landscapeRatings.clarity}
-          onChange={(val) =>
-            setLandscapeRatings((prev) => ({ ...prev, clarity: val }))
-          }
-          min={0}
-          max={10}
-        />
-        <RatingSlider
-          id="rating-peace"
-          label="How at peace do you feel with yourself?"
-          value={landscapeRatings.innerPeace}
-          onChange={(val) =>
-            setLandscapeRatings((prev) => ({ ...prev, innerPeace: val }))
-          }
-          min={0}
-          max={10}
-        />
-      </CollapsibleSection>
-
-      {/* Section C: Intentions */}
-      <CollapsibleSection
-        title="What are you hoping to explore?"
-        whyText="Research shows that specific, flexible intentions are one of the strongest predictors of positive outcomes. The key is to hold them loosely — let the experience unfold."
-      >
-        <FreeTextPrompt
-          id="intention-primary"
-          label="What is your primary intention for this experience?"
-          value={intentions.primary}
-          onChange={(val) =>
-            setIntentions((prev) => ({ ...prev, primary: val }))
-          }
-          placeholder="Be as specific as you can, while holding it loosely..."
-        />
-        <FreeTextPrompt
-          id="intention-explore"
-          label="What would you like to explore or understand better about yourself?"
-          value={intentions.explore}
-          onChange={(val) =>
-            setIntentions((prev) => ({ ...prev, explore: val }))
-          }
-        />
-        <FreeTextPrompt
-          id="intention-letgo"
-          label="What are you willing to let go of?"
-          value={intentions.letGo}
-          onChange={(val) => setIntentions((prev) => ({ ...prev, letGo: val }))}
-        />
-        <FreeTextPrompt
-          id="intention-fears"
-          label="Is there anything you're afraid might come up? If so, how do you want to meet it?"
-          value={intentions.fears}
-          onChange={(val) => setIntentions((prev) => ({ ...prev, fears: val }))}
-        />
-        <FreeTextPrompt
-          id="intention-success"
-          label="What does a 'successful' experience look like for you — and can you hold that loosely?"
-          value={intentions.success}
-          onChange={(val) =>
-            setIntentions((prev) => ({ ...prev, success: val }))
-          }
-        />
-      </CollapsibleSection>
-
-      {/* Section D: Practical Details */}
-      <CollapsibleSection title="The basics">
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <label
-              htmlFor="context-date"
-              className="text-text-primary text-sm font-medium"
-            >
-              Date
-            </label>
-            <input
-              type="date"
-              id="context-date"
-              value={context.date}
-              onChange={(e) =>
-                setContext((prev) => ({ ...prev, date: e.target.value }))
-              }
-              className="w-full rounded-[16px] border-2 border-card bg-surface px-3 py-2 text-sm text-text-primary focus:border-focus focus:outline-none"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label
-              htmlFor="context-substance"
-              className="text-text-primary text-sm font-medium"
-            >
-              Substance
-            </label>
-            <select
-              id="context-substance"
-              value={context.substance}
-              onChange={(e) =>
-                setContext((prev) => ({
-                  ...prev,
-                  substance: e.target.value as SubstanceType,
-                }))
-              }
-              className="w-full rounded-[16px] border-2 border-card bg-surface px-3 py-2 text-sm text-text-primary focus:border-focus focus:outline-none"
-            >
-              {SUBSTANCE_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="space-y-2">
-            <label
-              htmlFor="context-dose"
-              className="text-text-primary text-sm font-medium"
-            >
-              Dose
-            </label>
-            <input
-              type="text"
-              id="context-dose"
-              value={context.dose}
-              onChange={(e) =>
-                setContext((prev) => ({ ...prev, dose: e.target.value }))
-              }
-              placeholder="e.g., 3.5g dried mushrooms"
-              className="w-full rounded-[16px] border-2 border-card bg-surface px-3 py-2 text-sm text-text-primary placeholder-text-secondary focus:border-focus focus:outline-none"
-            />
-          </div>
-
-          <FreeTextPrompt
-            id="context-setting"
-            label="Setting"
-            value={context.setting}
-            onChange={(val) =>
-              setContext((prev) => ({ ...prev, setting: val }))
-            }
-            placeholder="Where will you be?"
-          />
-
-          <div className="space-y-2">
-            <label
-              htmlFor="context-sitter"
-              className="text-text-primary text-sm font-medium"
-            >
-              Sitter
-            </label>
-            <input
-              type="text"
-              id="context-sitter"
-              value={context.sitter}
-              onChange={(e) =>
-                setContext((prev) => ({ ...prev, sitter: e.target.value }))
-              }
-              placeholder="Who will be with you?"
-              className="w-full rounded-[16px] border-2 border-card bg-surface px-3 py-2 text-sm text-text-primary placeholder-text-secondary focus:border-focus focus:outline-none"
-            />
-          </div>
-        </div>
-      </CollapsibleSection>
-
-      {/* Complete / Uncomplete */}
-      <div className="flex items-center justify-center pt-4">
-        {completedAt ? (
-          <div className="text-center space-y-2">
-            <p className="text-sm text-success">
-              Completed on {new Date(completedAt).toLocaleDateString()}
-            </p>
-            <button
-              type="button"
-              onClick={handleUncomplete}
-              className="text-sm text-text-secondary hover:text-text-primary underline"
-            >
-              Mark as incomplete
-            </button>
-          </div>
-        ) : (
-          <button
-            type="button"
-            onClick={handleComplete}
-            className="rounded-[16px] bg-accent-warm px-6 py-2.5 text-sm font-medium text-background transition-colors hover:bg-accent-warm/90"
-          >
-            Mark as Complete
-          </button>
-        )}
-      </div>
+      )}
     </div>
   );
 }
