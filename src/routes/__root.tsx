@@ -30,7 +30,7 @@ function DisclaimerDialog() {
           Important Disclaimer
         </h2>
         <p className="mt-3 text-sm text-text-secondary leading-relaxed">
-          Inner Compass is a personal reflection tool designed to support your
+          CTRNOM is a personal reflection tool designed to support your
           self-exploration journey. It is{" "}
           <strong className="text-text-primary">not</strong> a medical device,
           diagnostic tool, or substitute for professional mental health care.
@@ -82,7 +82,7 @@ function RootLayout() {
       <header className="sticky top-0 z-50 border-b border-surface bg-background/95 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-4">
           <Link to="/" className="text-lg font-semibold text-accent-warm">
-            Inner Compass
+            🍄 CTRNOM
           </Link>
           {user && (
             <button
