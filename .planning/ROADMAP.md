@@ -110,7 +110,10 @@ Plans:
   2. AI-generated trip summary appears alongside instrument score charts in a dual view
   3. Profile section in footer lists all sessions with date and phase completion status, and user can start, view summary, or delete sessions
   4. Three-phase navigation labeled "Come Together", "Right Now", "Over Me" shows completion status per phase
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 06-01-PLAN.md — Scoring utilities, chart components, and comparison view route
+- [ ] 06-02-PLAN.md — Phase navigation stepper, profile route, and footer navigation
 **UI hint**: yes
 
 ## Progress
@@ -125,4 +128,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. Right Now (In-Trip Check-In) | 1/2 | In Progress|  |
 | 4. Come Together (AI Pre-Trip) | 3/3 | Complete   | 2026-04-10 |
 | 5. Over Me (Post-Trip Reflection) | 3/3 | Complete   | 2026-04-10 |
-| 6. Comparison, Sessions & Navigation | 0/TBD | Not started | - |
+| 6. Comparison, Sessions & Navigation | 0/2 | Planning complete | - |
