@@ -25,7 +25,7 @@ function DisclaimerDialog() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70">
-      <div className="mx-4 max-w-lg rounded-[20px] bg-surface p-6">
+      <div className="mx-4 max-w-lg rounded-lg bg-surface p-6">
         <h2 className="text-lg font-semibold text-accent-warm">
           Important Disclaimer
         </h2>
@@ -45,7 +45,7 @@ function DisclaimerDialog() {
             localStorage.setItem("disclaimer_seen", "1");
             setVisible(false);
           }}
-          className="mt-4 w-full rounded-[16px] bg-accent-warm px-4 py-2 text-sm font-medium text-background"
+          className="mt-4 w-full rounded bg-accent-warm px-4 py-2 text-sm font-medium text-background"
         >
           I understand
         </button>
@@ -79,7 +79,7 @@ function RootLayout() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-text-primary">
-      <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
+      <header className="sticky top-0 z-50 border-b border-surface bg-background/95 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-4">
           <Link to="/" className="text-lg font-semibold text-accent-warm">
             Inner Compass
@@ -99,12 +99,20 @@ function RootLayout() {
         <Outlet />
       </main>
 
-      <footer className="border-t border-border py-3">
-        <p className="mx-auto max-w-3xl px-4 text-center text-xs text-text-secondary">
-          This is a personal reflection tool, not a medical device. If you are
-          experiencing distress, please reach out to a mental health
-          professional.
-        </p>
+      <footer className="border-t border-surface py-3">
+        <div className="mx-auto max-w-3xl px-4 flex items-center justify-between">
+          <p className="text-xs text-text-secondary">
+            Personal reflection tool, not a medical device.
+          </p>
+          {user && (
+            <Link
+              to="/profile"
+              className="text-xs text-text-secondary hover:text-accent-warm transition-colors"
+            >
+              Profile
+            </Link>
+          )}
+        </div>
       </footer>
 
       <DisclaimerDialog />
