@@ -78,6 +78,28 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **NAV-02**: Footer contains profile/session management link
 - [x] **NAV-03**: Phase navigation shows completion status per phase
 
+## v1.1 Requirements
+
+Requirements for Claude Code Proxy Integration milestone.
+
+### Proxy Server
+
+- [ ] **PROXY-01**: Claude-code-proxy server cloned, configured, and running (locally or on a hosted platform like Railway/Fly.io)
+- [ ] **PROXY-02**: Proxy configured with correct API keys and model routing (SMALL_MODEL targets Claude Haiku)
+- [ ] **PROXY-03**: Proxy exposes an endpoint compatible with the Anthropic Messages API format
+
+### App Integration
+
+- [ ] **APINT-01**: `api/chat.ts` updated to use configurable base URL (`ANTHROPIC_BASE_URL` env var) instead of hardcoded Anthropic API endpoint
+- [ ] **APINT-02**: When `ANTHROPIC_BASE_URL` is set, all AI requests route through the proxy; when unset, direct Anthropic calls work as fallback
+- [ ] **APINT-03**: `.env.example` updated to document the new `ANTHROPIC_BASE_URL` variable
+
+### Validation
+
+- [ ] **VAL-01**: Phase 1 (Come Together) AI conversation works through the proxy — questions are adaptive, SWEMWBS scoring extracts correctly
+- [ ] **VAL-02**: Phase 3 (Over Me) AI conversation works through the proxy — cross-phase context feeds correctly, trip summary generates
+- [ ] **VAL-03**: Score extraction (`<!--SCORES:{...}-->` pattern) works reliably through the proxy with the target model
+
 ## v2 Requirements
 
 Deferred to future release. Tracked but not in current roadmap.
