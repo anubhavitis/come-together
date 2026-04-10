@@ -104,3 +104,12 @@ export const openReflectionSchema = z.object({
   letterToSelf: z.string().optional().default(''),
   understandNow: z.string().optional().default(''),
 })
+
+export const phase3ConversationMessageSchema = z.object({
+  role: z.enum(['user', 'assistant']),
+  content: z.string(),
+  questionNumber: z.number().int().min(1).max(11),
+  scores: z.record(z.string(), z.number()).optional(),
+})
+
+export const phase3ConversationSchema = z.array(phase3ConversationMessageSchema)
