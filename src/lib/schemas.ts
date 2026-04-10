@@ -49,9 +49,16 @@ export const contextSchema = z.object({
   sitter: z.string().optional().default(''),
 })
 
+export const phase2ResponseSchema = z.object({
+  questionId: z.string(),
+  selectedOptionId: z.string().nullable(),
+  freeText: z.string().default(''),
+})
+
 export const rawImpressionsSchema = z.object({
   freeWrite: z.string().optional().default(''),
   metaphor: z.string().optional().default(''),
+  responses: z.array(phase2ResponseSchema).optional(),
 })
 
 export const meq30Schema = recordSchema(items30, 0, 5)

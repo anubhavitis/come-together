@@ -42,9 +42,16 @@ export type Context = {
   sitter: string
 }
 
+export type Phase2Response = {
+  questionId: string
+  selectedOptionId: string | null
+  freeText: string
+}
+
 export type RawImpressions = {
   freeWrite: string
   metaphor: string
+  responses?: Phase2Response[]
 }
 
 export type Meq30 = Record<
