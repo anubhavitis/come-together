@@ -97,7 +97,7 @@ Plans:
 **Plans:** 3 plans
 Plans:
 - [x] 05-01-PLAN.md — Data contracts: migration, types, schemas, score-parser extension, PHASE3_SYSTEM_PROMPT
-- [ ] 05-02-PLAN.md — Cross-phase context builder and usePhase3Conversation hook
+- [x] 05-02-PLAN.md — Cross-phase context builder and usePhase3Conversation hook
 - [ ] 05-03-PLAN.md — Phase 3 conversation route UI with trip summary display
 **UI hint**: yes
 

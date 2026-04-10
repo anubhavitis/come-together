@@ -53,8 +53,8 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Phase 3: Over Me (Post-Trip Reflection)
 
 - [x] **OM-01**: AI generates tailored questions based on Phase 1 conversation + Phase 2 responses
-- [ ] **OM-02**: 10 adaptive questions exploring integration, insights, and changes noticed
-- [ ] **OM-03**: After 10 questions, AI generates a holistic trip summary referencing all three phases
+- [x] **OM-02**: 10 adaptive questions exploring integration, insights, and changes noticed
+- [x] **OM-03**: After 10 questions, AI generates a holistic trip summary referencing all three phases
 - [x] **OM-04**: Trip summary stored in Supabase and accessible from session profile
 - [x] **OM-05**: AI responses map to Integration Scales scoring behind the scenes
 
@@ -151,8 +151,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | RN-04 | Phase 3 | Complete |
 | RN-05 | Phase 3 | Complete |
 | OM-01 | Phase 5 | Complete |
-| OM-02 | Phase 5 | Pending |
-| OM-03 | Phase 5 | Pending |
+| OM-02 | Phase 5 | Complete |
+| OM-03 | Phase 5 | Complete |
 | OM-04 | Phase 5 | Complete |
 | OM-05 | Phase 5 | Complete |
 | COMP-01 | Phase 6 | Pending |
