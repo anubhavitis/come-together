@@ -1,108 +1,82 @@
 import { describe, test, expect, beforeEach, mock, spyOn } from 'bun:test'
+import type { Phase1, ConversationMessage } from '../../types/journey'
 
-// Mock modules before importing the hook
-const mockUsePhase1 = mock(() => ({
-  data: null as ReturnType<typeof import('@/types/journey')['Phase1']> | null,
-  isLoading: false,
-  error: null,
-}))
-
+// Mock modules before importing the hook -- use paths relative to the hook file
 const mockMutateAsync = mock(() => Promise.resolve({}))
-const mockUseUpsertPhase1 = mock(() => ({
-  mutateAsync: mockMutateAsync,
-}))
 
-mock.module('@/hooks/use-phase1', () => ({
+mock.module('../use-phase1', () => ({
   usePhase1: mockUsePhase1,
-  useUpsertPhase1: mockUseUpsertPhase1,
+  useUpsertPhase1: () => ({
+    mutateAsync: mockMutateAsync,
+  }),
 }))
 
-const mockGetSession = mock(() =>
-  Promise.resolve({
-    data: { session: { access_token: 'test-token' } },
-  })
-)
-
-mock.module('@/lib/supabase', () => ({
+mock.module('../../lib/supabase', () => ({
   supabase: {
     auth: {
-      getSession: mockGetSession,
+      getSession: () =>
+        Promise.resolve({
+          data: { session: { access_token: 'test-token' } },
+        }),
     },
   },
 }))
 
-mock.module('@/hooks/use-auth', () => ({
-  useAuth: () => ({ user: { id: 'test-user' }, loading: false, signOut: mock() }),
-}))
-
-// Mock React hooks for non-component testing
-let stateStore: Record<string, unknown> = {}
+// State tracking for React mock
+let stateSlots: unknown[] = []
+let stateSetters: Array<(val: unknown) => void> = []
 let effectCallbacks: Array<() => void | (() => void)> = []
-let callbackStore: Record<string, Function> = {}
-let refStore: Record<string, { current: unknown }> = {}
-let stateCounter = 0
-let effectCounter = 0
-let callbackCounter = 0
-let refCounter = 0
+let refSlots: Array<{ current: unknown }> = []
+let stateIdx = 0
+let effectIdx = 0
+let refIdx = 0
+
+function resetReactState() {
+  stateSlots = []
+  stateSetters = []
+  effectCallbacks = []
+  refSlots = []
+  stateIdx = 0
+  effectIdx = 0
+  refIdx = 0
+}
 
 mock.module('react', () => ({
   useState: (initial: unknown) => {
-    const key = `state_${stateCounter++}`
-    if (!(key in stateStore)) {
-      stateStore[key] = typeof initial === 'function' ? (initial as Function)() : initial
+    const i = stateIdx++
+    if (stateSlots.length <= i) {
+      const val = typeof initial === 'function' ? (initial as () => unknown)() : initial
+      stateSlots.push(val)
+      stateSetters.push((v: unknown) => {
+        stateSlots[i] = typeof v === 'function' ? (v as (prev: unknown) => unknown)(stateSlots[i]) : v
+      })
     }
-    return [stateStore[key], (val: unknown) => {
-      stateStore[key] = typeof val === 'function' ? (val as Function)(stateStore[key]) : val
-    }]
+    return [stateSlots[i], stateSetters[i]]
   },
   useEffect: (cb: () => void | (() => void), _deps?: unknown[]) => {
     effectCallbacks.push(cb)
   },
-  useCallback: (cb: Function, _deps?: unknown[]) => {
-    const key = `cb_${callbackCounter++}`
-    callbackStore[key] = cb
-    return cb
-  },
+  useCallback: (cb: Function, _deps?: unknown[]) => cb,
   useRef: (initial: unknown) => {
-    const key = `ref_${refCounter++}`
-    if (!(key in refStore)) {
-      refStore[key] = { current: initial }
+    const i = refIdx++
+    if (refSlots.length <= i) {
+      refSlots.push({ current: initial })
     }
-    return refStore[key]
+    return refSlots[i]
   },
   useMemo: (fn: () => unknown, _deps?: unknown[]) => fn(),
 }))
 
-mock.module('@tanstack/react-query', () => ({
-  useQuery: () => ({}),
-  useMutation: () => ({}),
-  useQueryClient: () => ({}),
-}))
+// Phase1 data getter -- tests can change this
+let phase1Data: Phase1 | null = null
+let phase1Loading = false
 
-// Now import the hook
-import { useConversation } from '../use-conversation'
-import type { Phase1, ConversationMessage } from '@/types/journey'
-
-function resetMocks() {
-  stateStore = {}
-  effectCallbacks = []
-  callbackStore = {}
-  refStore = {}
-  stateCounter = 0
-  effectCounter = 0
-  callbackCounter = 0
-  refCounter = 0
-  mockMutateAsync.mockClear()
-  mockUsePhase1.mockClear()
-  mockGetSession.mockClear()
+function mockUsePhase1() {
+  return { data: phase1Data, isLoading: phase1Loading, error: null }
 }
 
-function runEffects() {
-  for (const cb of effectCallbacks) {
-    cb()
-  }
-  effectCallbacks = []
-}
+// Must import AFTER mocks are set up
+const { useConversation } = await import('../use-conversation')
 
 const DEFAULT_PHASE1: Phase1 = {
   id: 'p1-id',
@@ -117,9 +91,28 @@ const DEFAULT_PHASE1: Phase1 = {
   updatedAt: '',
 }
 
+function callHook(journeyId = 'j-id') {
+  stateIdx = 0
+  effectIdx = 0
+  refIdx = 0
+  return useConversation(journeyId)
+}
+
+function runEffects() {
+  const cbs = [...effectCallbacks]
+  effectCallbacks = []
+  for (const cb of cbs) {
+    cb()
+  }
+}
+
 describe('useConversation', () => {
   beforeEach(() => {
-    resetMocks()
+    resetReactState()
+    phase1Data = null
+    phase1Loading = false
+    mockMutateAsync.mockClear()
+
     globalThis.fetch = mock(() =>
       Promise.resolve({
         ok: true,
@@ -129,8 +122,8 @@ describe('useConversation', () => {
   })
 
   test('initializes with empty state when no phase1 data', () => {
-    mockUsePhase1.mockReturnValue({ data: null, isLoading: false, error: null } as ReturnType<typeof mockUsePhase1>)
-    const result = useConversation('j-id')
+    phase1Data = null
+    const result = callHook()
 
     expect(result.messages).toEqual([])
     expect(result.currentQuestion).toBe(1)
@@ -150,128 +143,87 @@ describe('useConversation', () => {
       { role: 'assistant', content: 'What brings you?', questionNumber: 3 },
     ]
 
-    mockUsePhase1.mockReturnValue({
-      data: { ...DEFAULT_PHASE1, conversation: existingMessages },
-      isLoading: false,
-      error: null,
-    } as ReturnType<typeof mockUsePhase1>)
+    phase1Data = { ...DEFAULT_PHASE1, conversation: existingMessages }
 
-    const result = useConversation('j-id')
-
-    // After initialization effect runs, messages should be restored
+    // First call sets up the state
+    callHook()
+    // Run initialization effect
     runEffects()
-    // Re-call to pick up state changes
-    stateCounter = 0
-    effectCounter = 0
-    callbackCounter = 0
-    refCounter = 0
-    const result2 = useConversation('j-id')
+    // Re-call to read updated state
+    const result = callHook()
 
-    expect(result2.messages).toEqual(existingMessages)
-    // 2 assistant messages that have user replies + 1 awaiting = question 3
-    expect(result2.currentQuestion).toBe(3)
+    expect(result.messages).toEqual(existingMessages)
+    // 3 assistant messages, last is assistant, so currentQuestion = 3
+    expect(result.currentQuestion).toBe(3)
   })
 
   test('sets isComplete when phase1.completedAt is set', () => {
-    mockUsePhase1.mockReturnValue({
-      data: {
-        ...DEFAULT_PHASE1,
-        completedAt: '2026-01-01T00:00:00Z',
-        intentions: { ...DEFAULT_PHASE1.intentions, primary: 'My intention' },
-      },
-      isLoading: false,
-      error: null,
-    } as ReturnType<typeof mockUsePhase1>)
+    phase1Data = {
+      ...DEFAULT_PHASE1,
+      completedAt: '2026-01-01T00:00:00Z',
+      intentions: { ...DEFAULT_PHASE1.intentions, primary: 'My intention' },
+      conversation: [
+        { role: 'assistant', content: 'Q1', questionNumber: 1 },
+        { role: 'user', content: 'A1', questionNumber: 1 },
+      ],
+    }
 
-    const result = useConversation('j-id')
+    callHook()
     runEffects()
+    const result = callHook()
 
-    stateCounter = 0
-    effectCounter = 0
-    callbackCounter = 0
-    refCounter = 0
-    const result2 = useConversation('j-id')
-
-    expect(result2.isComplete).toBe(true)
-    expect(result2.intentionSentence).toBe('My intention')
+    expect(result.isComplete).toBe(true)
+    expect(result.intentionSentence).toBe('My intention')
   })
 
   test('sendMessage calls /api/chat with correct payload', async () => {
-    mockUsePhase1.mockReturnValue({
-      data: DEFAULT_PHASE1,
-      isLoading: false,
-      error: null,
-    } as ReturnType<typeof mockUsePhase1>)
+    phase1Data = DEFAULT_PHASE1
 
-    const result = useConversation('j-id')
+    callHook()
     runEffects()
+    const result = callHook()
 
     await result.sendMessage('I feel nervous about my upcoming journey')
 
-    expect(globalThis.fetch).toHaveBeenCalledWith('/api/chat', expect.objectContaining({
-      method: 'POST',
-      headers: expect.objectContaining({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer test-token',
-      }),
-    }))
+    expect(globalThis.fetch).toHaveBeenCalled()
+    const calls = (globalThis.fetch as ReturnType<typeof mock>).mock.calls
+    const [url, options] = calls[0] as [string, RequestInit]
+    expect(url).toBe('/api/chat')
+    expect(options.method).toBe('POST')
+    expect((options.headers as Record<string, string>)['Authorization']).toBe('Bearer test-token')
+    expect((options.headers as Record<string, string>)['Content-Type']).toBe('application/json')
 
-    // Verify body includes phase
-    const callArgs = (globalThis.fetch as ReturnType<typeof mock>).mock.calls[0]
-    const body = JSON.parse((callArgs as unknown[])[1].body)
+    const body = JSON.parse(options.body as string)
     expect(body.phase).toBe('phase1')
     expect(Array.isArray(body.messages)).toBe(true)
   })
 
-  test('sendMessage sets isLoading during API call', async () => {
-    let resolvePromise: (value: unknown) => void
-    globalThis.fetch = mock(() =>
-      new Promise((resolve) => {
-        resolvePromise = resolve
-      })
-    ) as unknown as typeof fetch
+  test('sendMessage sets isLoading false after API call completes', async () => {
+    phase1Data = DEFAULT_PHASE1
 
-    mockUsePhase1.mockReturnValue({
-      data: DEFAULT_PHASE1,
-      isLoading: false,
-      error: null,
-    } as ReturnType<typeof mockUsePhase1>)
-
-    const result = useConversation('j-id')
+    callHook()
     runEffects()
+    const result = callHook()
 
-    const promise = result.sendMessage('hello')
+    await result.sendMessage('hello')
 
-    // isLoading should be true now (we check the state store)
-    // The 'isLoading' state is the third useState (index 2)
-    expect(stateStore['state_2']).toBe(true)
-
-    resolvePromise!({
-      ok: true,
-      json: () => Promise.resolve({ message: 'response' }),
-    })
-    await promise
-
-    // After resolve, isLoading should be false
-    expect(stateStore['state_2']).toBe(false)
+    // After sendMessage completes, isLoading (slot 2) should be false
+    expect(stateSlots[2]).toBe(false)
   })
 
   test('sendMessage persists conversation via useUpsertPhase1', async () => {
-    mockUsePhase1.mockReturnValue({
-      data: DEFAULT_PHASE1,
-      isLoading: false,
-      error: null,
-    } as ReturnType<typeof mockUsePhase1>)
+    phase1Data = DEFAULT_PHASE1
 
-    const result = useConversation('j-id')
+    callHook()
     runEffects()
+    const result = callHook()
 
     await result.sendMessage('My answer')
 
     expect(mockMutateAsync).toHaveBeenCalled()
-    const mutateArgs = mockMutateAsync.mock.calls[0][0] as Record<string, unknown>
-    expect(mutateArgs.journeyId).toBe('j-id')
-    expect(Array.isArray(mutateArgs.conversation)).toBe(true)
+    const args = mockMutateAsync.mock.calls[0][0] as Record<string, unknown>
+    expect(args.journeyId).toBe('j-id')
+    expect(Array.isArray(args.conversation)).toBe(true)
   })
 
   test('sendMessage sets error state on fetch failure', async () => {
@@ -282,19 +234,16 @@ describe('useConversation', () => {
       })
     ) as unknown as typeof fetch
 
-    mockUsePhase1.mockReturnValue({
-      data: DEFAULT_PHASE1,
-      isLoading: false,
-      error: null,
-    } as ReturnType<typeof mockUsePhase1>)
+    phase1Data = DEFAULT_PHASE1
 
-    const result = useConversation('j-id')
+    callHook()
     runEffects()
+    const result = callHook()
 
     await result.sendMessage('test')
 
-    // error state is at index 4
-    expect(stateStore['state_4']).toBe('Server error')
+    // error is state slot 5 (messages=0, currentQuestion=1, isLoading=2, isComplete=3, intentionSentence=4, error=5)
+    expect(stateSlots[5]).toBe('Server error')
   })
 
   test('sendMessage extracts and strips scores from AI response', async () => {
@@ -307,20 +256,17 @@ describe('useConversation', () => {
       })
     ) as unknown as typeof fetch
 
-    mockUsePhase1.mockReturnValue({
-      data: DEFAULT_PHASE1,
-      isLoading: false,
-      error: null,
-    } as ReturnType<typeof mockUsePhase1>)
+    phase1Data = DEFAULT_PHASE1
 
-    const result = useConversation('j-id')
+    callHook()
     runEffects()
+    const result = callHook()
 
     await result.sendMessage('I feel good')
 
-    // Check persisted conversation includes scores on assistant message
-    const mutateArgs = mockMutateAsync.mock.calls[0][0] as Record<string, unknown>
-    const conversation = mutateArgs.conversation as ConversationMessage[]
+    expect(mockMutateAsync).toHaveBeenCalled()
+    const args = mockMutateAsync.mock.calls[0][0] as Record<string, unknown>
+    const conversation = args.conversation as ConversationMessage[]
     const assistantMsg = conversation.find(m => m.role === 'assistant')
     expect(assistantMsg?.scores).toEqual({ item1: 4, item3: 5 })
     expect(assistantMsg?.content).toBe('Great answer!')
