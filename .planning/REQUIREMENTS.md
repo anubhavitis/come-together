@@ -45,10 +45,10 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Phase 2: Right Now (In-Trip Check-In)
 
 - [ ] **RN-01**: 10-question multiple-choice questionnaire presented in Typeform carousel
-- [ ] **RN-02**: Each question has predefined choices plus an optional free-text "type your own" option
-- [ ] **RN-03**: Responses map to validated instrument scores (MEQ-30, EDI, EBI) via deterministic scoring
+- [x] **RN-02**: Each question has predefined choices plus an optional free-text "type your own" option
+- [x] **RN-03**: Responses map to validated instrument scores (MEQ-30, EDI, EBI) via deterministic scoring
 - [ ] **RN-04**: Intention sentence from Phase 1 displayed as grounding anchor during Phase 2
-- [ ] **RN-05**: Responses stored in Supabase JSONB
+- [x] **RN-05**: Responses stored in Supabase JSONB
 
 ### Phase 3: Over Me (Post-Trip Reflection)
 
@@ -146,10 +146,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CT-07 | Phase 4 | Pending |
 | CT-08 | Phase 4 | Pending |
 | RN-01 | Phase 3 | Pending |
-| RN-02 | Phase 3 | Pending |
-| RN-03 | Phase 3 | Pending |
+| RN-02 | Phase 3 | Complete |
+| RN-03 | Phase 3 | Complete |
 | RN-04 | Phase 3 | Pending |
-| RN-05 | Phase 3 | Pending |
+| RN-05 | Phase 3 | Complete |
 | OM-01 | Phase 5 | Pending |
 | OM-02 | Phase 5 | Pending |
 | OM-03 | Phase 5 | Pending |

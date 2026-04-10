@@ -62,9 +62,9 @@ Plans:
   2. Each question offers predefined choices plus an optional free-text "type your own" input
   3. The intention sentence from Phase 1 (if completed) is displayed as a grounding anchor during the flow
   4. On completion, responses are stored in Supabase JSONB and deterministic MEQ-30, EDI, and EBI scores are computed
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 Plans:
-- [ ] 03-01-PLAN.md — Question data definitions, types, Zod schemas, and deterministic scoring function
+- [x] 03-01-PLAN.md — Question data definitions, types, Zod schemas, and deterministic scoring function
 - [ ] 03-02-PLAN.md — Phase 2 carousel route page with intention banner, auto-save, and completion flow
 **UI hint**: yes
 
@@ -114,7 +114,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 |-------|----------------|--------|-----------|
 | 1. Infrastructure Skeleton | 0/2 | Planning complete | - |
 | 2. Design System & Typeform Carousel | 0/4 | Planning complete | - |
-| 3. Right Now (In-Trip Check-In) | 0/2 | Planning complete | - |
+| 3. Right Now (In-Trip Check-In) | 1/2 | In Progress|  |
 | 4. Come Together (AI Pre-Trip) | 0/TBD | Not started | - |
 | 5. Over Me (Post-Trip Reflection) | 0/TBD | Not started | - |
 | 6. Comparison, Sessions & Navigation | 0/TBD | Not started | - |
