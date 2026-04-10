@@ -188,12 +188,22 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NAV-01 | Phase 6 | Complete |
 | NAV-02 | Phase 6 | Complete |
 | NAV-03 | Phase 6 | Complete |
+| PROXY-01 | Phase 7 | Pending |
+| PROXY-02 | Phase 7 | Pending |
+| PROXY-03 | Phase 7 | Pending |
+| APINT-01 | Phase 7 | Pending |
+| APINT-02 | Phase 7 | Pending |
+| APINT-03 | Phase 7 | Pending |
+| VAL-01 | Phase 8 | Pending |
+| VAL-02 | Phase 8 | Pending |
+| VAL-03 | Phase 8 | Pending |
 
 **Coverage:**
-- v1 requirements: 43 total
-- Mapped to phases: 43
+- v1 requirements: 43 total (all complete)
+- v1.1 requirements: 9 total
+- Mapped to phases: 9
 - Unmapped: 0
 
 ---
 *Requirements defined: 2026-04-10*
-*Last updated: 2026-04-10 after roadmap creation*
+*Last updated: 2026-04-11 after v1.1 roadmap creation*

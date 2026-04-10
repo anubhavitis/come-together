@@ -1,8 +1,9 @@
 # Roadmap: Come Together
 
-## Overview
+## Milestones
 
-Transform Inner Compass from static validated questionnaires into an AI-driven adaptive journal across three Beatles-themed phases. The build order is risk-driven: infrastructure and shared UI primitives first, then the deterministic Phase 2 ("Right Now") to prove carousel UX without AI risk, then the two AI-powered phases in order of scoring complexity, and finally the comparison view and session management to close the loop.
+- [x] **v1.0 MVP** - Phases 1-6 (AI-driven psychedelic journey journal)
+- [ ] **v1.1 Claude Code Proxy Integration** - Phases 7-8 (route AI through proxy)
 
 ## Phases
 
@@ -12,14 +13,27 @@ Transform Inner Compass from static validated questionnaires into an AI-driven a
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Infrastructure Skeleton** - Vercel serverless API layer with auth verification and Vite dev proxy
-- [ ] **Phase 2: Design System & Typeform Carousel** - Dark luxury aesthetic overhaul and shared one-question-at-a-time component
-- [ ] **Phase 3: Right Now (In-Trip Check-In)** - Multiple-choice questionnaire with deterministic instrument scoring via carousel
+<details>
+<summary>v1.0 MVP (Phases 1-6)</summary>
+
+- [x] **Phase 1: Infrastructure Skeleton** - Vercel serverless API layer with auth verification and Vite dev proxy
+- [x] **Phase 2: Design System & Typeform Carousel** - Dark luxury aesthetic overhaul and shared one-question-at-a-time component
+- [x] **Phase 3: Right Now (In-Trip Check-In)** - Multiple-choice questionnaire with deterministic instrument scoring via carousel
 - [x] **Phase 4: Come Together (AI Pre-Trip)** - AI-driven adaptive free-text conversation with SWEMWBS scoring extraction (completed 2026-04-10)
 - [x] **Phase 5: Over Me (Post-Trip Reflection)** - Cross-phase AI questionnaire and holistic trip summary generation (completed 2026-04-10)
-- [ ] **Phase 6: Comparison, Sessions & Navigation** - Before/after instrument visualizations, session management, and phase navigation
+- [x] **Phase 6: Comparison, Sessions & Navigation** - Before/after instrument visualizations, session management, and phase navigation
+
+</details>
+
+### v1.1 Claude Code Proxy Integration
+
+- [ ] **Phase 7: Proxy Server & App Integration** - Deploy claude-code-proxy and route all AI requests through it via configurable base URL
+- [ ] **Phase 8: End-to-End Validation** - Verify AI conversations and score extraction work correctly through the proxy
 
 ## Phase Details
+
+<details>
+<summary>v1.0 Phase Details (Phases 1-6)</summary>
 
 ### Phase 1: Infrastructure Skeleton
 **Goal**: A working serverless API layer that accepts authenticated requests and returns Claude Haiku responses, with seamless local development
@@ -49,7 +63,7 @@ Plans:
 Plans:
 - [x] 02-01-PLAN.md — Dark luxury @theme tokens, Inter font, type scale, border-radius tokens, useReducedMotion hook
 - [x] 02-02-PLAN.md — Restyle route pages (root, login, journey list, journey detail, phase1) to dark luxury aesthetic
-- [ ] 02-03-PLAN.md — Build reusable QuestionCarousel component with full accessibility and arrow key navigation
+- [x] 02-03-PLAN.md — Build reusable QuestionCarousel component with full accessibility and arrow key navigation
 - [x] 02-04-PLAN.md — Restyle shared components (LikertScale, VASSlider, etc.) and visual verification checkpoint
 **UI hint**: yes
 
@@ -62,7 +76,7 @@ Plans:
   2. Each question offers predefined choices plus an optional free-text "type your own" input
   3. The intention sentence from Phase 1 (if completed) is displayed as a grounding anchor during the flow
   4. On completion, responses are stored in Supabase JSONB and deterministic MEQ-30, EDI, and EBI scores are computed
-**Plans:** 1/2 plans executed
+**Plans:** 2 plans
 Plans:
 - [x] 03-01-PLAN.md — Question data definitions, types, Zod schemas, and deterministic scoring function
 - [x] 03-02-PLAN.md — Phase 2 carousel route page with intention banner, auto-save, and completion flow
@@ -78,7 +92,7 @@ Plans:
   3. After 10 questions, a single intention sentence is generated and displayed prominently
   4. The conversation persists to Supabase after each answer -- refreshing the page resumes at the correct question
   5. On completion, AI-extracted SWEMWBS scores are stored in the phase1 JSONB columns
-**Plans:** 3/3 plans complete
+**Plans:** 3 plans
 Plans:
 - [x] 04-01-PLAN.md — Types, API phase routing, SWEMWBS system prompt, and score parser utility
 - [x] 04-02-PLAN.md — Conversation hook with AI lifecycle, persistence, resume, and score extraction
@@ -94,7 +108,7 @@ Plans:
   2. After 10 questions, AI produces a holistic trip summary that synthesizes insights across all three phases
   3. The trip summary is stored in Supabase and accessible from the session profile
   4. AI-extracted Integration Scales scores are stored in the phase3 JSONB columns
-**Plans:** 3/3 plans complete
+**Plans:** 3 plans
 Plans:
 - [x] 05-01-PLAN.md — Data contracts: migration, types, schemas, score-parser extension, PHASE3_SYSTEM_PROMPT
 - [x] 05-02-PLAN.md — Cross-phase context builder and usePhase3Conversation hook
@@ -112,20 +126,46 @@ Plans:
   4. Three-phase navigation labeled "Come Together", "Right Now", "Over Me" shows completion status per phase
 **Plans:** 2 plans
 Plans:
-- [ ] 06-01-PLAN.md — Scoring utilities, chart components, and comparison view route
+- [x] 06-01-PLAN.md — Scoring utilities, chart components, and comparison view route
 - [x] 06-02-PLAN.md — Phase navigation stepper, profile route, and footer navigation
 **UI hint**: yes
+
+</details>
+
+### Phase 7: Proxy Server & App Integration
+**Goal**: All AI requests route through a deployed claude-code-proxy server, with the app seamlessly switching between proxy and direct Anthropic calls based on configuration
+**Depends on**: Phase 6 (v1.0 complete)
+**Requirements**: PROXY-01, PROXY-02, PROXY-03, APINT-01, APINT-02, APINT-03
+**Success Criteria** (what must be TRUE):
+  1. The claude-code-proxy server is running and its `/health` endpoint returns a healthy response
+  2. The proxy's `SMALL_MODEL` is configured so that requests containing "haiku" route to the intended backend model
+  3. Setting `ANTHROPIC_BASE_URL` in the Vercel app causes all `/api/chat` AI requests to flow through the proxy instead of directly to Anthropic
+  4. When `ANTHROPIC_BASE_URL` is not set, the app falls back to direct Anthropic API calls with no behavior change
+  5. `.env.example` documents `ANTHROPIC_BASE_URL` with clear usage instructions
+**Plans**: TBD
+
+### Phase 8: End-to-End Validation
+**Goal**: Both AI conversation phases produce correct adaptive questions and reliable score extraction when running through the proxy
+**Depends on**: Phase 7
+**Requirements**: VAL-01, VAL-02, VAL-03
+**Success Criteria** (what must be TRUE):
+  1. A complete Phase 1 (Come Together) conversation through the proxy produces adaptive questions and extracts SWEMWBS scores via the `<!--SCORES:{...}-->` pattern
+  2. A complete Phase 3 (Over Me) conversation through the proxy receives cross-phase context and generates a trip summary
+  3. Score extraction succeeds on at least 3 consecutive test conversations without parsing failures
+**Plans**: TBD
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
+Phases execute in numeric order: 7 -> 8
 
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Infrastructure Skeleton | 0/2 | Planning complete | - |
-| 2. Design System & Typeform Carousel | 0/4 | Planning complete | - |
-| 3. Right Now (In-Trip Check-In) | 1/2 | In Progress|  |
-| 4. Come Together (AI Pre-Trip) | 3/3 | Complete   | 2026-04-10 |
-| 5. Over Me (Post-Trip Reflection) | 3/3 | Complete   | 2026-04-10 |
-| 6. Comparison, Sessions & Navigation | 0/2 | Planning complete | - |
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 1. Infrastructure Skeleton | v1.0 | 2/2 | Complete | 2026-04-10 |
+| 2. Design System & Typeform Carousel | v1.0 | 4/4 | Complete | 2026-04-10 |
+| 3. Right Now (In-Trip Check-In) | v1.0 | 2/2 | Complete | 2026-04-10 |
+| 4. Come Together (AI Pre-Trip) | v1.0 | 3/3 | Complete | 2026-04-10 |
+| 5. Over Me (Post-Trip Reflection) | v1.0 | 3/3 | Complete | 2026-04-10 |
+| 6. Comparison, Sessions & Navigation | v1.0 | 2/2 | Complete | 2026-04-10 |
+| 7. Proxy Server & App Integration | v1.1 | 0/0 | Not started | - |
+| 8. End-to-End Validation | v1.1 | 0/0 | Not started | - |
