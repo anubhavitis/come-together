@@ -32,8 +32,8 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. `bun dev` with Vite proxy forwards `/api/*` requests to the local serverless function transparently
 **Plans:** 2 plans
 Plans:
-- [ ] 01-01-PLAN.md — Dependencies, config files, Vite dev proxy, and Vercel deployment setup
-- [ ] 01-02-PLAN.md — Authenticated /api/chat serverless function with Claude Haiku generation
+- [x] 01-01-PLAN.md — Dependencies, config files, Vite dev proxy, and Vercel deployment setup
+- [x] 01-02-PLAN.md — Authenticated /api/chat serverless function with Claude Haiku generation
 
 ### Phase 2: Design System & Typeform Carousel
 **Goal**: The entire app wears the dark luxury aesthetic, and a reusable Typeform-style carousel component is ready for all three phases to consume

@@ -9,10 +9,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: Vercel serverless function at `/api/chat` accepts conversation context and returns Claude Haiku AI response
+- [x] **INFRA-01**: Vercel serverless function at `/api/chat` accepts conversation context and returns Claude Haiku AI response
 - [x] **INFRA-02**: Anthropic API key stored as server-side env var only (never `VITE_` prefixed, never in client bundle)
 - [x] **INFRA-03**: Vite dev proxy forwards `/api/*` requests to local serverless function for development
-- [ ] **INFRA-04**: Auth token forwarded from client to serverless function and verified via Supabase before AI calls
+- [x] **INFRA-04**: Auth token forwarded from client to serverless function and verified via Supabase before AI calls
 
 ### Design System
 
@@ -122,10 +122,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 1 | Pending |
+| INFRA-01 | Phase 1 | Complete |
 | INFRA-02 | Phase 1 | Complete |
 | INFRA-03 | Phase 1 | Complete |
-| INFRA-04 | Phase 1 | Pending |
+| INFRA-04 | Phase 1 | Complete |
 | DSGN-01 | Phase 2 | Pending |
 | DSGN-02 | Phase 2 | Pending |
 | DSGN-03 | Phase 2 | Pending |
