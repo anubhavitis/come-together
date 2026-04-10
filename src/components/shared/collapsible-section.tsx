@@ -21,11 +21,11 @@ export function CollapsibleSection({
   const [whyOpen, setWhyOpen] = useState(false);
 
   return (
-    <div className="rounded-lg border-2 border-card bg-surface">
+    <div className="rounded-[20px] border-2 border-border bg-surface">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between px-4 py-3 text-left"
+        className="flex w-full items-center justify-between rounded-[20px] px-4 py-3 text-left focus:ring-2 focus:ring-focus focus:ring-offset-2 focus:ring-offset-background focus:outline-none"
       >
         <div className="flex-1">
           <div className="flex items-center gap-2">
@@ -65,7 +65,7 @@ export function CollapsibleSection({
                 <button
                   type="button"
                   onClick={() => setWhyOpen((v) => !v)}
-                  className="text-xs text-accent-cool hover:underline"
+                  className="text-xs text-text-secondary hover:text-accent-warm hover:underline"
                 >
                   {whyOpen ? "Hide" : "Why this question?"}
                 </button>
