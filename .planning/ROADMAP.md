@@ -80,7 +80,7 @@ Plans:
   5. On completion, AI-extracted SWEMWBS scores are stored in the phase1 JSONB columns
 **Plans:** 3 plans
 Plans:
-- [ ] 04-01-PLAN.md — Types, API phase routing, SWEMWBS system prompt, and score parser utility
+- [x] 04-01-PLAN.md — Types, API phase routing, SWEMWBS system prompt, and score parser utility
 - [ ] 04-02-PLAN.md — Conversation hook with AI lifecycle, persistence, resume, and score extraction
 - [ ] 04-03-PLAN.md — Phase 1 route replacement with AI conversation UI and intention display
 **UI hint**: yes

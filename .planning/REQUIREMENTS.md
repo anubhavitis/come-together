@@ -34,13 +34,13 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Phase 1: Come Together (AI Pre-Trip)
 
 - [ ] **CT-01**: AI agent asks 10 adaptive free-text questions about user's mental state, life problems, and intention-setting
-- [ ] **CT-02**: Questions adapt based on previous responses (AI decides next question from conversation context)
+- [x] **CT-02**: Questions adapt based on previous responses (AI decides next question from conversation context)
 - [ ] **CT-03**: AI loading state with subtle animation, then full response revealed (not streamed)
 - [ ] **CT-04**: After 10 questions, AI generates one sentence for the user to remember during the trip
 - [ ] **CT-05**: Intention sentence displayed prominently and stored in Supabase
-- [ ] **CT-06**: AI responses map to SWEMWBS baseline scoring behind the scenes
+- [x] **CT-06**: AI responses map to SWEMWBS baseline scoring behind the scenes
 - [ ] **CT-07**: Conversation persisted to Supabase after each answer (resume on return)
-- [ ] **CT-08**: Warm, non-clinical conversational tone (system prompt calibration)
+- [x] **CT-08**: Warm, non-clinical conversational tone (system prompt calibration)
 
 ### Phase 2: Right Now (In-Trip Check-In)
 
@@ -138,13 +138,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CRSL-05 | Phase 2 | Pending |
 | CRSL-06 | Phase 2 | Pending |
 | CT-01 | Phase 4 | Pending |
-| CT-02 | Phase 4 | Pending |
+| CT-02 | Phase 4 | Complete |
 | CT-03 | Phase 4 | Pending |
 | CT-04 | Phase 4 | Pending |
 | CT-05 | Phase 4 | Pending |
-| CT-06 | Phase 4 | Pending |
+| CT-06 | Phase 4 | Complete |
 | CT-07 | Phase 4 | Pending |
-| CT-08 | Phase 4 | Pending |
+| CT-08 | Phase 4 | Complete |
 | RN-01 | Phase 3 | Complete |
 | RN-02 | Phase 3 | Complete |
 | RN-03 | Phase 3 | Complete |
