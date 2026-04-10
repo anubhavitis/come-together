@@ -50,7 +50,7 @@ Plans:
 - [x] 02-01-PLAN.md — Dark luxury @theme tokens, Inter font, type scale, border-radius tokens, useReducedMotion hook
 - [x] 02-02-PLAN.md — Restyle route pages (root, login, journey list, journey detail, phase1) to dark luxury aesthetic
 - [ ] 02-03-PLAN.md — Build reusable QuestionCarousel component with full accessibility and arrow key navigation
-- [ ] 02-04-PLAN.md — Restyle shared components (LikertScale, VASSlider, etc.) and visual verification checkpoint
+- [x] 02-04-PLAN.md — Restyle shared components (LikertScale, VASSlider, etc.) and visual verification checkpoint
 **UI hint**: yes
 
 ### Phase 3: Right Now (In-Trip Check-In)
