@@ -16,11 +16,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Design System
 
-- [ ] **DSGN-01**: Dark luxury color palette adapted from DESIGN.md — deep blacks, Pinterest Red (#e60023) as singular accent, warm olive/sand neutrals for dark surfaces
-- [ ] **DSGN-02**: Typography system using Pin Sans (or closest available fallback) with compact scale (12px-70px)
-- [ ] **DSGN-03**: Generous border-radius system (16px buttons/inputs, 20px+ cards, 40px hero containers)
+- [x] **DSGN-01**: Dark luxury color palette adapted from DESIGN.md — deep blacks, Pinterest Red (#e60023) as singular accent, warm olive/sand neutrals for dark surfaces
+- [x] **DSGN-02**: Typography system using Pin Sans (or closest available fallback) with compact scale (12px-70px)
+- [x] **DSGN-03**: Generous border-radius system (16px buttons/inputs, 20px+ cards, 40px hero containers)
 - [ ] **DSGN-04**: All existing pages and components restyled to dark luxury aesthetic
-- [ ] **DSGN-05**: Tailwind v4 `@theme` tokens updated to dark luxury palette
+- [x] **DSGN-05**: Tailwind v4 `@theme` tokens updated to dark luxury palette
 
 ### Typeform Carousel
 
@@ -126,11 +126,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INFRA-02 | Phase 1 | Complete |
 | INFRA-03 | Phase 1 | Complete |
 | INFRA-04 | Phase 1 | Complete |
-| DSGN-01 | Phase 2 | Pending |
-| DSGN-02 | Phase 2 | Pending |
-| DSGN-03 | Phase 2 | Pending |
+| DSGN-01 | Phase 2 | Complete |
+| DSGN-02 | Phase 2 | Complete |
+| DSGN-03 | Phase 2 | Complete |
 | DSGN-04 | Phase 2 | Pending |
-| DSGN-05 | Phase 2 | Pending |
+| DSGN-05 | Phase 2 | Complete |
 | CRSL-01 | Phase 2 | Pending |
 | CRSL-02 | Phase 2 | Pending |
 | CRSL-03 | Phase 2 | Pending |
