@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 2: Design System & Typeform Carousel** - Dark luxury aesthetic overhaul and shared one-question-at-a-time component
 - [ ] **Phase 3: Right Now (In-Trip Check-In)** - Multiple-choice questionnaire with deterministic instrument scoring via carousel
 - [x] **Phase 4: Come Together (AI Pre-Trip)** - AI-driven adaptive free-text conversation with SWEMWBS scoring extraction (completed 2026-04-10)
-- [ ] **Phase 5: Over Me (Post-Trip Reflection)** - Cross-phase AI questionnaire and holistic trip summary generation
+- [x] **Phase 5: Over Me (Post-Trip Reflection)** - Cross-phase AI questionnaire and holistic trip summary generation (completed 2026-04-10)
 - [ ] **Phase 6: Comparison, Sessions & Navigation** - Before/after instrument visualizations, session management, and phase navigation
 
 ## Phase Details
@@ -94,11 +94,11 @@ Plans:
   2. After 10 questions, AI produces a holistic trip summary that synthesizes insights across all three phases
   3. The trip summary is stored in Supabase and accessible from the session profile
   4. AI-extracted Integration Scales scores are stored in the phase3 JSONB columns
-**Plans:** 3 plans
+**Plans:** 3/3 plans complete
 Plans:
 - [x] 05-01-PLAN.md — Data contracts: migration, types, schemas, score-parser extension, PHASE3_SYSTEM_PROMPT
 - [x] 05-02-PLAN.md — Cross-phase context builder and usePhase3Conversation hook
-- [ ] 05-03-PLAN.md — Phase 3 conversation route UI with trip summary display
+- [x] 05-03-PLAN.md — Phase 3 conversation route UI with trip summary display
 **UI hint**: yes
 
 ### Phase 6: Comparison, Sessions & Navigation
@@ -124,5 +124,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 2. Design System & Typeform Carousel | 0/4 | Planning complete | - |
 | 3. Right Now (In-Trip Check-In) | 1/2 | In Progress|  |
 | 4. Come Together (AI Pre-Trip) | 3/3 | Complete   | 2026-04-10 |
-| 5. Over Me (Post-Trip Reflection) | 0/3 | Planning complete | - |
+| 5. Over Me (Post-Trip Reflection) | 3/3 | Complete   | 2026-04-10 |
 | 6. Comparison, Sessions & Navigation | 0/TBD | Not started | - |
