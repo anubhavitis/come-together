@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import { generateText } from 'ai'
-import { anthropic } from '@ai-sdk/anthropic'
+import { createAnthropic } from '@ai-sdk/anthropic'
 
 const supabaseUrl = process.env.SUPABASE_URL
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -11,6 +11,11 @@ if (!supabaseUrl || !supabaseServiceKey) {
 
 const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
   auth: { autoRefreshToken: false, persistSession: false },
+})
+
+const anthropic = createAnthropic({
+  baseURL: process.env.ANTHROPIC_BASE_URL || 'https://api.anthropic.com/v1',
+  apiKey: process.env.ANTHROPIC_API_KEY || '',
 })
 
 const PHASE1_SYSTEM_PROMPT = `You are a warm, thoughtful companion helping someone prepare for a meaningful personal experience. You are NOT a therapist or a clinical interviewer. Think of yourself as a close friend who asks caring questions.
