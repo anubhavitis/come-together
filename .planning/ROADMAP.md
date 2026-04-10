@@ -113,7 +113,7 @@ Plans:
 **Plans:** 2 plans
 Plans:
 - [ ] 06-01-PLAN.md — Scoring utilities, chart components, and comparison view route
-- [ ] 06-02-PLAN.md — Phase navigation stepper, profile route, and footer navigation
+- [x] 06-02-PLAN.md — Phase navigation stepper, profile route, and footer navigation
 **UI hint**: yes
 
 ## Progress

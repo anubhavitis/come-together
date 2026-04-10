@@ -66,17 +66,17 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Session Management
 
-- [ ] **SESS-01**: Profile section accessible from footer navigation
-- [ ] **SESS-02**: List of all sessions with date, phase completion status indicators
-- [ ] **SESS-03**: User can start a new session from profile
-- [ ] **SESS-04**: User can view session summary (AI trip summary from Phase 3)
-- [ ] **SESS-05**: User can delete a session
+- [x] **SESS-01**: Profile section accessible from footer navigation
+- [x] **SESS-02**: List of all sessions with date, phase completion status indicators
+- [x] **SESS-03**: User can start a new session from profile
+- [x] **SESS-04**: User can view session summary (AI trip summary from Phase 3)
+- [x] **SESS-05**: User can delete a session
 
 ### Navigation & Layout
 
-- [ ] **NAV-01**: Three-phase navigation labeled "Come Together", "Right Now", "Over Me"
-- [ ] **NAV-02**: Footer contains profile/session management link
-- [ ] **NAV-03**: Phase navigation shows completion status per phase
+- [x] **NAV-01**: Three-phase navigation labeled "Come Together", "Right Now", "Over Me"
+- [x] **NAV-02**: Footer contains profile/session management link
+- [x] **NAV-03**: Phase navigation shows completion status per phase
 
 ## v2 Requirements
 
@@ -158,14 +158,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | COMP-01 | Phase 6 | Pending |
 | COMP-02 | Phase 6 | Pending |
 | COMP-03 | Phase 6 | Pending |
-| SESS-01 | Phase 6 | Pending |
-| SESS-02 | Phase 6 | Pending |
-| SESS-03 | Phase 6 | Pending |
-| SESS-04 | Phase 6 | Pending |
-| SESS-05 | Phase 6 | Pending |
-| NAV-01 | Phase 6 | Pending |
-| NAV-02 | Phase 6 | Pending |
-| NAV-03 | Phase 6 | Pending |
+| SESS-01 | Phase 6 | Complete |
+| SESS-02 | Phase 6 | Complete |
+| SESS-03 | Phase 6 | Complete |
+| SESS-04 | Phase 6 | Complete |
+| SESS-05 | Phase 6 | Complete |
+| NAV-01 | Phase 6 | Complete |
+| NAV-02 | Phase 6 | Complete |
+| NAV-03 | Phase 6 | Complete |
 
 **Coverage:**
 - v1 requirements: 43 total
