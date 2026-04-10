@@ -118,6 +118,13 @@ export type Journey = {
   updatedAt: string
 }
 
+export type ConversationMessage = {
+  role: 'user' | 'assistant'
+  content: string
+  questionNumber: number
+  scores?: Partial<Swemwbs>
+}
+
 export type Phase1 = {
   id: string
   journeyId: string
@@ -127,6 +134,7 @@ export type Phase1 = {
   innerLandscapeRatings: InnerLandscapeRatings
   intentions: Intentions
   context: Context
+  conversation: ConversationMessage[]
   updatedAt: string
 }
 

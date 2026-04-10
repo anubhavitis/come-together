@@ -23,6 +23,7 @@ function mapPhase1(row: Record<string, unknown>): Phase1 {
     innerLandscapeRatings: row.inner_landscape_ratings as Phase1['innerLandscapeRatings'],
     intentions: row.intentions as Phase1['intentions'],
     context: row.context as Phase1['context'],
+    conversation: (row.conversation ?? []) as Phase1['conversation'],
     updatedAt: row.updated_at as string,
   }
 }

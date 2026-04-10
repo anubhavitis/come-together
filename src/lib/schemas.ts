@@ -20,6 +20,15 @@ const items30 = Array.from({ length: 30 }, (_, i) => `item${i + 1}`)
 
 export const swemwbsSchema = recordSchema(items7, 1, 5)
 
+export const conversationMessageSchema = z.object({
+  role: z.enum(['user', 'assistant']),
+  content: z.string(),
+  questionNumber: z.number().int().min(1).max(11),
+  scores: swemwbsSchema.optional(),
+})
+
+export const conversationSchema = z.array(conversationMessageSchema)
+
 export const innerLandscapeTextSchema = z.object({
   relationshipWithSelf: z.string().optional().default(''),
   prevalentEmotions: z.string().optional().default(''),
