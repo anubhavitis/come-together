@@ -78,7 +78,11 @@ Plans:
   3. After 10 questions, a single intention sentence is generated and displayed prominently
   4. The conversation persists to Supabase after each answer -- refreshing the page resumes at the correct question
   5. On completion, AI-extracted SWEMWBS scores are stored in the phase1 JSONB columns
-**Plans**: TBD
+**Plans:** 3 plans
+Plans:
+- [ ] 04-01-PLAN.md — Types, API phase routing, SWEMWBS system prompt, and score parser utility
+- [ ] 04-02-PLAN.md — Conversation hook with AI lifecycle, persistence, resume, and score extraction
+- [ ] 04-03-PLAN.md — Phase 1 route replacement with AI conversation UI and intention display
 **UI hint**: yes
 
 ### Phase 5: Over Me (Post-Trip Reflection)
@@ -115,6 +119,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 1. Infrastructure Skeleton | 0/2 | Planning complete | - |
 | 2. Design System & Typeform Carousel | 0/4 | Planning complete | - |
 | 3. Right Now (In-Trip Check-In) | 1/2 | In Progress|  |
-| 4. Come Together (AI Pre-Trip) | 0/TBD | Not started | - |
+| 4. Come Together (AI Pre-Trip) | 0/3 | Planning complete | - |
 | 5. Over Me (Post-Trip Reflection) | 0/TBD | Not started | - |
 | 6. Comparison, Sessions & Navigation | 0/TBD | Not started | - |
