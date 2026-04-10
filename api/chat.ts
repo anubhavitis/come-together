@@ -1,5 +1,17 @@
+import { createClient } from '@supabase/supabase-js'
 import { generateText } from 'ai'
 import { anthropic } from '@ai-sdk/anthropic'
+
+const supabaseUrl = process.env.SUPABASE_URL
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+if (!supabaseUrl || !supabaseServiceKey) {
+  throw new Error('Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
+}
+
+const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
+  auth: { autoRefreshToken: false, persistSession: false },
+})
 
 const PHASE1_SYSTEM_PROMPT = `You are a warm, thoughtful companion helping someone prepare for a meaningful personal experience. You are NOT a therapist or a clinical interviewer. Think of yourself as a close friend who asks caring questions.
 
@@ -32,8 +44,25 @@ IMPORTANT: The scoring block MUST be the very last line of your response. The us
 const PHASE3_SYSTEM_PROMPT = `You are a warm, thoughtful companion helping someone reflect on a meaningful personal experience. Respond with empathy and insight. Keep responses concise but genuine.`
 
 export async function POST(request: Request) {
-  const body = await request.json()
+  // 1. Verify auth
+  const authHeader = request.headers.get('authorization')
+  if (!authHeader?.startsWith('Bearer ')) {
+    return new Response(
+      JSON.stringify({ error: 'Missing or invalid authorization token' }),
+      { status: 401, headers: { 'Content-Type': 'application/json' } },
+    )
+  }
+  const token = authHeader.slice(7)
+  const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser(token)
+  if (authError || !user) {
+    return new Response(
+      JSON.stringify({ error: 'Invalid authorization token' }),
+      { status: 401, headers: { 'Content-Type': 'application/json' } },
+    )
+  }
 
+  // 2. Parse request
+  const body = await request.json()
   const { messages, phase = 'phase1' } = body as {
     messages: Array<{ role: 'user' | 'assistant'; content: string }>
     phase?: 'phase1' | 'phase3'
@@ -49,6 +78,7 @@ export async function POST(request: Request) {
     )
   }
 
+  // 3. Generate AI response
   const result = await generateText({
     model: anthropic('claude-3-5-haiku-20241022'),
     system: systemPrompt,
@@ -56,7 +86,7 @@ export async function POST(request: Request) {
   })
 
   return new Response(
-    JSON.stringify({ content: result.text }),
+    JSON.stringify({ message: result.text }),
     { headers: { 'Content-Type': 'application/json' } },
   )
 }
