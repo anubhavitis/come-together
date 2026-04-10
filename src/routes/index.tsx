@@ -27,7 +27,7 @@ function CreateJourneyForm() {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="rounded bg-accent-warm px-4 py-2 text-sm font-medium text-background"
+        className="rounded-[16px] bg-accent-warm px-4 py-2 text-sm font-medium text-background"
       >
         New Journey
       </button>
@@ -50,12 +50,12 @@ function CreateJourneyForm() {
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Journey name"
-        className="rounded border border-surface bg-card px-3 py-2 text-sm text-text-primary placeholder:text-text-secondary focus:outline-none focus:ring-1 focus:ring-accent-warm"
+        className="rounded-[16px] border border-border bg-card px-3 py-2 text-sm text-text-primary placeholder:text-text-secondary focus:outline-none focus:ring-1 focus:ring-focus"
       />
       <button
         type="submit"
         disabled={!name.trim() || createJourney.isPending}
-        className="rounded bg-accent-warm px-4 py-2 text-sm font-medium text-background disabled:opacity-50"
+        className="rounded-[16px] bg-accent-warm px-4 py-2 text-sm font-medium text-background disabled:opacity-50"
       >
         {createJourney.isPending ? "Creating..." : "Create"}
       </button>
@@ -65,7 +65,7 @@ function CreateJourneyForm() {
           setOpen(false);
           setName("");
         }}
-        className="rounded px-3 py-2 text-sm text-text-secondary hover:text-text-primary"
+        className="rounded-[16px] px-3 py-2 text-sm text-text-secondary hover:text-text-primary"
       >
         Cancel
       </button>
@@ -102,12 +102,12 @@ function DeleteButton({ journey }: { journey: Journey }) {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="Type 'delete' to confirm"
-        className="w-44 rounded border border-surface bg-card px-2 py-1 text-xs text-text-primary placeholder:text-text-secondary focus:outline-none focus:ring-1 focus:ring-danger"
+        className="w-44 rounded-[16px] border border-border bg-card px-2 py-1 text-xs text-text-primary placeholder:text-text-secondary focus:outline-none focus:ring-1 focus:ring-danger"
       />
       <button
         disabled={input !== "delete" || deleteJourney.isPending}
         onClick={() => deleteJourney.mutateAsync(journey.id)}
-        className="rounded bg-danger px-2 py-1 text-xs font-medium text-background disabled:opacity-50"
+        className="rounded-[16px] bg-danger px-2 py-1 text-xs font-medium text-background disabled:opacity-50"
       >
         {deleteJourney.isPending ? "..." : "Delete"}
       </button>
@@ -132,7 +132,7 @@ function JourneyCard({ journey }: { journey: Journey }) {
       onClick={() =>
         navigate({ to: "/journey/$id", params: { id: journey.id } })
       }
-      className="cursor-pointer rounded-lg border border-surface bg-surface p-4 transition-colors hover:bg-card"
+      className="cursor-pointer rounded-[20px] border border-border bg-surface p-4 transition-colors hover:bg-card"
     >
       <div className="flex items-start justify-between">
         <div>
@@ -183,7 +183,7 @@ function ImportButton() {
       <button
         onClick={() => fileRef.current?.click()}
         disabled={importing}
-        className="rounded border border-surface px-3 py-2 text-sm text-text-secondary hover:text-text-primary disabled:opacity-50"
+        className="rounded-[16px] border border-border px-3 py-2 text-sm text-text-secondary hover:text-text-primary disabled:opacity-50"
       >
         {importing ? "Importing..." : "Import"}
       </button>

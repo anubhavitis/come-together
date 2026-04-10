@@ -73,7 +73,7 @@ function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="rounded border border-surface bg-card px-3 py-2 text-sm text-text-primary placeholder:text-text-secondary focus:outline-none focus:ring-1 focus:ring-accent-warm"
+            className="rounded-[16px] border border-border bg-card px-3 py-2 text-sm text-text-primary placeholder:text-text-secondary focus:outline-none focus:ring-1 focus:ring-focus"
           />
           <input
             type="password"
@@ -82,7 +82,7 @@ function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={6}
-            className="rounded border border-surface bg-card px-3 py-2 text-sm text-text-primary placeholder:text-text-secondary focus:outline-none focus:ring-1 focus:ring-accent-warm"
+            className="rounded-[16px] border border-border bg-card px-3 py-2 text-sm text-text-primary placeholder:text-text-secondary focus:outline-none focus:ring-1 focus:ring-focus"
           />
 
           {error && <p className="text-sm text-danger">{error}</p>}
@@ -90,7 +90,7 @@ function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="rounded bg-accent-warm px-4 py-2 text-sm font-medium text-background disabled:opacity-50"
+            className="rounded-[16px] bg-accent-warm px-4 py-2 text-sm font-medium text-background disabled:opacity-50"
           >
             {loading ? '...' : mode === 'signin' ? 'Sign In' : 'Sign Up'}
           </button>
