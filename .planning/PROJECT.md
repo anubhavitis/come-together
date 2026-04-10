@@ -25,17 +25,31 @@ The AI-driven adaptive questioning must feel like a thoughtful conversation, not
 
 ### Active
 
-- [ ] Redesign UI to dark luxury Pinterest-inspired aesthetic (DESIGN.md adapted for dark mode)
-- [ ] "Come Together" (Phase 1): AI agent asks 10 adaptive free-text questions about mental state, life problems, and intention-setting, using Vercel AI SDK + Claude Haiku
-- [ ] "Come Together" generates one sentence for the user to remember during the trip
-- [ ] AI questions map responses to validated instrument scores (SWEMWBS baseline) behind the scenes
-- [ ] "Right Now" (Phase 2): 10-question multiple-choice questionnaire with optional free-text, Typeform-style vertical carousel with fade transitions
-- [ ] "Right Now" maps responses to validated instrument scores (MEQ-30, EDI, EBI) behind the scenes
-- [ ] "Over Me" (Phase 3): AI-tailored questionnaire based on Phase 1 + Phase 2 responses, followed by AI-generated trip summary
-- [ ] Typeform-style one-question-at-a-time UX with fade transitions for all questionnaire phases
-- [ ] Comparison view showing before/after shifts using validated instrument scores
-- [ ] Session management via profile section in footer (start, view, delete sessions, review summaries)
-- [ ] Streaming AI responses appear all at once (loading state, then reveal)
+- [ ] Deploy claude-code-proxy server for API routing
+- [ ] Configure app to use proxy instead of direct Anthropic API calls
+- [ ] Use Claude Haiku as the target model through the proxy
+
+### Validated (v1.0)
+
+- [x] Dark luxury Pinterest-inspired aesthetic — Phase 2
+- [x] "Come Together" (Phase 1): AI adaptive pre-trip conversation with SWEMWBS extraction — Phase 4
+- [x] Intention sentence generation — Phase 4
+- [x] "Right Now" (Phase 2): 10-question carousel with MEQ-30/EDI/EBI scoring — Phase 3
+- [x] "Over Me" (Phase 3): AI post-trip reflection with Integration Scales and trip summary — Phase 5
+- [x] Typeform-style carousel UX with fade transitions — Phase 2
+- [x] Comparison view with instrument score visualizations — Phase 6
+- [x] Session management via profile section — Phase 6
+- [x] Three-phase Beatles navigation with completion status — Phase 6
+
+## Current Milestone: v1.1 Claude Code Proxy Integration
+
+**Goal:** Deploy a claude-code-proxy server and route all AI requests through it, using Claude Haiku as the target model
+
+**Target features:**
+- Clone and configure claude-code-proxy from https://github.com/fuergaosi233/claude-code-proxy
+- Configure proxy to target Claude Haiku model
+- Update api/chat.ts to route through the proxy instead of direct Anthropic API
+- Update environment variables for proxy connectivity
 - [ ] Store all AI conversation data and questionnaire responses in Supabase
 
 ### Out of Scope
@@ -99,4 +113,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-11 after Phase 6 completion — ALL PHASES COMPLETE. v1.0 milestone delivered.*
+*Last updated: 2026-04-11 — v1.1 milestone started (Claude Code Proxy Integration)*
