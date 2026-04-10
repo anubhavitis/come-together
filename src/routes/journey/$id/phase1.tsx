@@ -173,7 +173,7 @@ function Phase1Form() {
           <Link
             to="/journey/$id"
             params={{ id }}
-            className="text-sm text-accent-cool hover:underline"
+            className="text-sm text-text-secondary hover:text-accent-warm"
           >
             &larr; Back to journey
           </Link>
@@ -337,7 +337,7 @@ function Phase1Form() {
               onChange={(e) =>
                 setContext((prev) => ({ ...prev, date: e.target.value }))
               }
-              className="w-full rounded-lg border-2 border-card bg-surface px-3 py-2 text-sm text-text-primary focus:border-accent-cool focus:outline-none"
+              className="w-full rounded-[16px] border-2 border-card bg-surface px-3 py-2 text-sm text-text-primary focus:border-focus focus:outline-none"
             />
           </div>
 
@@ -357,7 +357,7 @@ function Phase1Form() {
                   substance: e.target.value as SubstanceType,
                 }))
               }
-              className="w-full rounded-lg border-2 border-card bg-surface px-3 py-2 text-sm text-text-primary focus:border-accent-cool focus:outline-none"
+              className="w-full rounded-[16px] border-2 border-card bg-surface px-3 py-2 text-sm text-text-primary focus:border-focus focus:outline-none"
             >
               {SUBSTANCE_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -382,7 +382,7 @@ function Phase1Form() {
                 setContext((prev) => ({ ...prev, dose: e.target.value }))
               }
               placeholder="e.g., 3.5g dried mushrooms"
-              className="w-full rounded-lg border-2 border-card bg-surface px-3 py-2 text-sm text-text-primary placeholder-text-secondary focus:border-accent-cool focus:outline-none"
+              className="w-full rounded-[16px] border-2 border-card bg-surface px-3 py-2 text-sm text-text-primary placeholder-text-secondary focus:border-focus focus:outline-none"
             />
           </div>
 
@@ -411,7 +411,7 @@ function Phase1Form() {
                 setContext((prev) => ({ ...prev, sitter: e.target.value }))
               }
               placeholder="Who will be with you?"
-              className="w-full rounded-lg border-2 border-card bg-surface px-3 py-2 text-sm text-text-primary placeholder-text-secondary focus:border-accent-cool focus:outline-none"
+              className="w-full rounded-[16px] border-2 border-card bg-surface px-3 py-2 text-sm text-text-primary placeholder-text-secondary focus:border-focus focus:outline-none"
             />
           </div>
         </div>
@@ -436,7 +436,7 @@ function Phase1Form() {
           <button
             type="button"
             onClick={handleComplete}
-            className="rounded-lg bg-accent-warm px-6 py-2.5 text-sm font-medium text-background transition-colors hover:bg-accent-warm/90"
+            className="rounded-[16px] bg-accent-warm px-6 py-2.5 text-sm font-medium text-background transition-colors hover:bg-accent-warm/90"
           >
             Mark as Complete
           </button>

@@ -28,7 +28,7 @@ function PhaseBox({
   linkParams: Record<string, string>;
 }) {
   return (
-    <div className="flex-1 rounded-lg border border-surface bg-surface p-4">
+    <div className="flex-1 rounded-[20px] border border-border bg-surface p-4">
       <h3 className="text-sm font-medium text-text-primary">{label}</h3>
       <p className="mt-1 text-xs text-text-secondary">
         {completedAt ? (
@@ -42,7 +42,7 @@ function PhaseBox({
       <Link
         to={linkTo}
         params={linkParams}
-        className="mt-3 inline-block text-xs font-medium text-accent-cool hover:underline"
+        className="mt-3 inline-block text-xs font-medium text-text-secondary hover:text-accent-warm"
       >
         {completedAt ? "Review" : "Begin"} →
       </Link>
@@ -52,7 +52,7 @@ function PhaseBox({
 
 function Phase3Section({ journey }: { journey: FullJourney }) {
   return (
-    <div className="rounded-lg border border-surface bg-surface p-4">
+    <div className="rounded-[20px] border border-border bg-surface p-4">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-medium text-text-primary">
           Phase 3 — Integration Check-ins
@@ -64,7 +64,7 @@ function Phase3Section({ journey }: { journey: FullJourney }) {
         <Link
           to="/journey/$id/phase3/new"
           params={{ id: journey.id }}
-          className="rounded bg-accent-cool px-3 py-1 text-xs font-medium text-background"
+          className="rounded-[16px] bg-accent-warm px-3 py-1 text-xs font-medium text-background"
         >
           New Check-in
         </Link>
@@ -77,7 +77,7 @@ function Phase3Section({ journey }: { journey: FullJourney }) {
               <Link
                 to="/journey/$id/phase3/$entryId"
                 params={{ id: journey.id, entryId: entry.id }}
-                className="flex items-center justify-between rounded bg-card px-3 py-2 text-sm hover:bg-background"
+                className="flex items-center justify-between rounded-[16px] bg-card px-3 py-2 text-sm hover:bg-background"
               >
                 <span className="text-text-primary">{entry.label}</span>
                 <span className="text-xs text-text-secondary">
@@ -151,7 +151,7 @@ function JourneyOverview() {
         <Link
           to="/journey/$id/compare"
           params={{ id: journey.id }}
-          className="text-sm text-accent-cool hover:underline"
+          className="text-sm text-text-secondary hover:text-accent-warm"
         >
           View comparison →
         </Link>
