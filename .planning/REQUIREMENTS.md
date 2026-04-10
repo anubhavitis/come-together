@@ -122,56 +122,56 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | TBD | Pending |
-| INFRA-02 | TBD | Pending |
-| INFRA-03 | TBD | Pending |
-| INFRA-04 | TBD | Pending |
-| DSGN-01 | TBD | Pending |
-| DSGN-02 | TBD | Pending |
-| DSGN-03 | TBD | Pending |
-| DSGN-04 | TBD | Pending |
-| DSGN-05 | TBD | Pending |
-| CRSL-01 | TBD | Pending |
-| CRSL-02 | TBD | Pending |
-| CRSL-03 | TBD | Pending |
-| CRSL-04 | TBD | Pending |
-| CRSL-05 | TBD | Pending |
-| CRSL-06 | TBD | Pending |
-| CT-01 | TBD | Pending |
-| CT-02 | TBD | Pending |
-| CT-03 | TBD | Pending |
-| CT-04 | TBD | Pending |
-| CT-05 | TBD | Pending |
-| CT-06 | TBD | Pending |
-| CT-07 | TBD | Pending |
-| CT-08 | TBD | Pending |
-| RN-01 | TBD | Pending |
-| RN-02 | TBD | Pending |
-| RN-03 | TBD | Pending |
-| RN-04 | TBD | Pending |
-| RN-05 | TBD | Pending |
-| OM-01 | TBD | Pending |
-| OM-02 | TBD | Pending |
-| OM-03 | TBD | Pending |
-| OM-04 | TBD | Pending |
-| OM-05 | TBD | Pending |
-| COMP-01 | TBD | Pending |
-| COMP-02 | TBD | Pending |
-| COMP-03 | TBD | Pending |
-| SESS-01 | TBD | Pending |
-| SESS-02 | TBD | Pending |
-| SESS-03 | TBD | Pending |
-| SESS-04 | TBD | Pending |
-| SESS-05 | TBD | Pending |
-| NAV-01 | TBD | Pending |
-| NAV-02 | TBD | Pending |
-| NAV-03 | TBD | Pending |
+| INFRA-01 | Phase 1 | Pending |
+| INFRA-02 | Phase 1 | Pending |
+| INFRA-03 | Phase 1 | Pending |
+| INFRA-04 | Phase 1 | Pending |
+| DSGN-01 | Phase 2 | Pending |
+| DSGN-02 | Phase 2 | Pending |
+| DSGN-03 | Phase 2 | Pending |
+| DSGN-04 | Phase 2 | Pending |
+| DSGN-05 | Phase 2 | Pending |
+| CRSL-01 | Phase 2 | Pending |
+| CRSL-02 | Phase 2 | Pending |
+| CRSL-03 | Phase 2 | Pending |
+| CRSL-04 | Phase 2 | Pending |
+| CRSL-05 | Phase 2 | Pending |
+| CRSL-06 | Phase 2 | Pending |
+| CT-01 | Phase 4 | Pending |
+| CT-02 | Phase 4 | Pending |
+| CT-03 | Phase 4 | Pending |
+| CT-04 | Phase 4 | Pending |
+| CT-05 | Phase 4 | Pending |
+| CT-06 | Phase 4 | Pending |
+| CT-07 | Phase 4 | Pending |
+| CT-08 | Phase 4 | Pending |
+| RN-01 | Phase 3 | Pending |
+| RN-02 | Phase 3 | Pending |
+| RN-03 | Phase 3 | Pending |
+| RN-04 | Phase 3 | Pending |
+| RN-05 | Phase 3 | Pending |
+| OM-01 | Phase 5 | Pending |
+| OM-02 | Phase 5 | Pending |
+| OM-03 | Phase 5 | Pending |
+| OM-04 | Phase 5 | Pending |
+| OM-05 | Phase 5 | Pending |
+| COMP-01 | Phase 6 | Pending |
+| COMP-02 | Phase 6 | Pending |
+| COMP-03 | Phase 6 | Pending |
+| SESS-01 | Phase 6 | Pending |
+| SESS-02 | Phase 6 | Pending |
+| SESS-03 | Phase 6 | Pending |
+| SESS-04 | Phase 6 | Pending |
+| SESS-05 | Phase 6 | Pending |
+| NAV-01 | Phase 6 | Pending |
+| NAV-02 | Phase 6 | Pending |
+| NAV-03 | Phase 6 | Pending |
 
 **Coverage:**
 - v1 requirements: 43 total
-- Mapped to phases: 0
-- Unmapped: 43
+- Mapped to phases: 43
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-04-10*
-*Last updated: 2026-04-10 after initial definition*
+*Last updated: 2026-04-10 after roadmap creation*
