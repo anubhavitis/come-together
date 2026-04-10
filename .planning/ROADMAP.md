@@ -45,11 +45,12 @@ Plans:
   3. The carousel component displays one question at a time with fade transitions, a thin progress bar, and keyboard navigation (Enter to advance, arrows for selection)
   4. The carousel meets WCAG 2.1 AA: ARIA live regions announce question transitions, focus moves to new question on advance, and `prefers-reduced-motion` disables animations
   5. Carousel renders correctly on mobile with 48px minimum touch targets
-**Plans:** 3 plans
+**Plans:** 4 plans
 Plans:
-- [ ] 02-01-PLAN.md — Dark luxury @theme tokens, Inter font, border-radius tokens, useReducedMotion hook
-- [ ] 02-02-PLAN.md — Restyle all existing pages and shared components to dark luxury aesthetic
-- [ ] 02-03-PLAN.md — Build reusable QuestionCarousel component with full accessibility
+- [ ] 02-01-PLAN.md — Dark luxury @theme tokens, Inter font, type scale, border-radius tokens, useReducedMotion hook
+- [ ] 02-02-PLAN.md — Restyle route pages (root, login, journey list, journey detail, phase1) to dark luxury aesthetic
+- [ ] 02-03-PLAN.md — Build reusable QuestionCarousel component with full accessibility and arrow key navigation
+- [ ] 02-04-PLAN.md — Restyle shared components (LikertScale, VASSlider, etc.) and visual verification checkpoint
 **UI hint**: yes
 
 ### Phase 3: Right Now (In-Trip Check-In)
@@ -109,7 +110,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Infrastructure Skeleton | 0/2 | Planning complete | - |
-| 2. Design System & Typeform Carousel | 0/3 | Planning complete | - |
+| 2. Design System & Typeform Carousel | 0/4 | Planning complete | - |
 | 3. Right Now (In-Trip Check-In) | 0/TBD | Not started | - |
 | 4. Come Together (AI Pre-Trip) | 0/TBD | Not started | - |
 | 5. Over Me (Post-Trip Reflection) | 0/TBD | Not started | - |
