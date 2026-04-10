@@ -151,6 +151,13 @@ export type Phase2 = {
   updatedAt: string
 }
 
+export type Phase3ConversationMessage = {
+  role: 'user' | 'assistant'
+  content: string
+  questionNumber: number
+  scores?: Record<string, number>
+}
+
 export type Phase3Entry = {
   id: string
   journeyId: string
@@ -163,6 +170,8 @@ export type Phase3Entry = {
   experiencedIntegration: ExperiencedIntegration
   intentionIntegration: IntentionIntegration
   openReflection: OpenReflection
+  conversation: Phase3ConversationMessage[]
+  tripSummary: string | null
   createdAt: string
   updatedAt: string
 }

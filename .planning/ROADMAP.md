@@ -96,7 +96,7 @@ Plans:
   4. AI-extracted Integration Scales scores are stored in the phase3 JSONB columns
 **Plans:** 3 plans
 Plans:
-- [ ] 05-01-PLAN.md — Data contracts: migration, types, schemas, score-parser extension, PHASE3_SYSTEM_PROMPT
+- [x] 05-01-PLAN.md — Data contracts: migration, types, schemas, score-parser extension, PHASE3_SYSTEM_PROMPT
 - [ ] 05-02-PLAN.md — Cross-phase context builder and usePhase3Conversation hook
 - [ ] 05-03-PLAN.md — Phase 3 conversation route UI with trip summary display
 **UI hint**: yes
