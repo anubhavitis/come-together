@@ -4,3 +4,5 @@ export { RatingSlider } from "./rating-slider";
 export { FreeTextPrompt } from "./free-text-prompt";
 export { CollapsibleSection } from "./collapsible-section";
 export { SaveIndicator } from "./save-indicator";
+export { QuestionCarousel } from "./question-carousel";
+export type { CarouselQuestion, QuestionCarouselProps } from "./question-carousel";
