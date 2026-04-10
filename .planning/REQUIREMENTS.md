@@ -60,9 +60,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Comparison View
 
-- [ ] **COMP-01**: Before/after comparison showing validated instrument score shifts (SWEMWBS delta, MEQ-30 factors, EDI, EBI)
-- [ ] **COMP-02**: AI-generated narrative summary alongside instrument score charts (dual view)
-- [ ] **COMP-03**: Recharts visualizations for instrument scores with meaningful thresholds highlighted (e.g., MEQ-30 complete mystical experience >= 3.0, SWEMWBS meaningful change >= 3 points)
+- [x] **COMP-01**: Before/after comparison showing validated instrument score shifts (SWEMWBS delta, MEQ-30 factors, EDI, EBI)
+- [x] **COMP-02**: AI-generated narrative summary alongside instrument score charts (dual view)
+- [x] **COMP-03**: Recharts visualizations for instrument scores with meaningful thresholds highlighted (e.g., MEQ-30 complete mystical experience >= 3.0, SWEMWBS meaningful change >= 3 points)
 
 ### Session Management
 
@@ -155,9 +155,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | OM-03 | Phase 5 | Complete |
 | OM-04 | Phase 5 | Complete |
 | OM-05 | Phase 5 | Complete |
-| COMP-01 | Phase 6 | Pending |
-| COMP-02 | Phase 6 | Pending |
-| COMP-03 | Phase 6 | Pending |
+| COMP-01 | Phase 6 | Complete |
+| COMP-02 | Phase 6 | Complete |
+| COMP-03 | Phase 6 | Complete |
 | SESS-01 | Phase 6 | Complete |
 | SESS-02 | Phase 6 | Complete |
 | SESS-03 | Phase 6 | Complete |
