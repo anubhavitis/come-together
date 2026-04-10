@@ -94,7 +94,11 @@ Plans:
   2. After 10 questions, AI produces a holistic trip summary that synthesizes insights across all three phases
   3. The trip summary is stored in Supabase and accessible from the session profile
   4. AI-extracted Integration Scales scores are stored in the phase3 JSONB columns
-**Plans**: TBD
+**Plans:** 3 plans
+Plans:
+- [ ] 05-01-PLAN.md — Data contracts: migration, types, schemas, score-parser extension, PHASE3_SYSTEM_PROMPT
+- [ ] 05-02-PLAN.md — Cross-phase context builder and usePhase3Conversation hook
+- [ ] 05-03-PLAN.md — Phase 3 conversation route UI with trip summary display
 **UI hint**: yes
 
 ### Phase 6: Comparison, Sessions & Navigation
@@ -120,5 +124,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 2. Design System & Typeform Carousel | 0/4 | Planning complete | - |
 | 3. Right Now (In-Trip Check-In) | 1/2 | In Progress|  |
 | 4. Come Together (AI Pre-Trip) | 3/3 | Complete   | 2026-04-10 |
-| 5. Over Me (Post-Trip Reflection) | 0/TBD | Not started | - |
+| 5. Over Me (Post-Trip Reflection) | 0/3 | Planning complete | - |
 | 6. Comparison, Sessions & Navigation | 0/TBD | Not started | - |
