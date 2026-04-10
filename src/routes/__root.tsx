@@ -100,11 +100,19 @@ function RootLayout() {
       </main>
 
       <footer className="border-t border-surface py-3">
-        <p className="mx-auto max-w-3xl px-4 text-center text-xs text-text-secondary">
-          This is a personal reflection tool, not a medical device. If you are
-          experiencing distress, please reach out to a mental health
-          professional.
-        </p>
+        <div className="mx-auto max-w-3xl px-4 flex items-center justify-between">
+          <p className="text-xs text-text-secondary">
+            Personal reflection tool, not a medical device.
+          </p>
+          {user && (
+            <Link
+              to="/profile"
+              className="text-xs text-text-secondary hover:text-accent-warm transition-colors"
+            >
+              Profile
+            </Link>
+          )}
+        </div>
       </footer>
 
       <DisclaimerDialog />
