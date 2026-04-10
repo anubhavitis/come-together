@@ -1,3 +1,4 @@
+export { useReducedMotion } from "./use-reduced-motion";
 export { useAuth, signIn, signUp } from "./use-auth";
 export {
   useJourneys,
