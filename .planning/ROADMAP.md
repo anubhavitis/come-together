@@ -30,7 +30,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. A request to `/api/chat` without a valid auth token is rejected with 401
   3. The Anthropic API key is not present in the client bundle or any `VITE_` prefixed variable
   4. `bun dev` with Vite proxy forwards `/api/*` requests to the local serverless function transparently
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 01-01-PLAN.md — Dependencies, config files, Vite dev proxy, and Vercel deployment setup
+- [ ] 01-02-PLAN.md — Authenticated /api/chat serverless function with Claude Haiku generation
 
 ### Phase 2: Design System & Typeform Carousel
 **Goal**: The entire app wears the dark luxury aesthetic, and a reusable Typeform-style carousel component is ready for all three phases to consume
@@ -101,7 +104,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Infrastructure Skeleton | 0/TBD | Not started | - |
+| 1. Infrastructure Skeleton | 0/2 | Planning complete | - |
 | 2. Design System & Typeform Carousel | 0/TBD | Not started | - |
 | 3. Right Now (In-Trip Check-In) | 0/TBD | Not started | - |
 | 4. Come Together (AI Pre-Trip) | 0/TBD | Not started | - |
