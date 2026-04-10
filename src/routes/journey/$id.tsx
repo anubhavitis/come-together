@@ -41,7 +41,7 @@ function JourneyLayout() {
         &larr; Back to journeys
       </Link>
 
-      <nav className="flex items-center justify-center gap-2 border-b border-border py-4 mb-6">
+      <nav className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 border-b border-border py-3 mb-6">
         {PHASES.map((phase, i) => {
           const isActive = currentPhase === phase.key;
           const isCompleted = completionStatus[phase.key];
@@ -57,7 +57,7 @@ function JourneyLayout() {
                 to={`/journey/$id/${phase.path}`}
                 params={{ id }}
                 className={[
-                  "px-3 py-2 text-sm rounded-[16px] transition-colors hover:bg-surface",
+                  "px-2 py-1.5 text-xs sm:px-3 sm:py-2 sm:text-sm rounded-[16px] transition-colors hover:bg-surface whitespace-nowrap",
                   isActive
                     ? "text-accent-warm font-semibold border-b-2 border-accent-warm"
                     : isCompleted

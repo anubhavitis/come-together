@@ -28,7 +28,7 @@ function PhaseBox({
   linkParams: Record<string, string>;
 }) {
   return (
-    <div className="flex-1 rounded-[20px] border border-border bg-surface p-4">
+    <div className="rounded-[20px] border border-border bg-surface p-4">
       <h3 className="text-sm font-medium text-text-primary">{label}</h3>
       <p className="mt-1 text-xs text-text-secondary">
         {completedAt ? (
@@ -53,7 +53,7 @@ function PhaseBox({
 function Phase3Section({ journey }: { journey: FullJourney }) {
   return (
     <div className="rounded-[20px] border border-border bg-surface p-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="text-sm font-medium text-text-primary">
           Phase 3 — Integration Check-ins
           <span className="ml-2 text-xs text-text-secondary">
@@ -64,7 +64,7 @@ function Phase3Section({ journey }: { journey: FullJourney }) {
         <Link
           to="/journey/$id/phase3/new"
           params={{ id: journey.id }}
-          className="rounded-[16px] bg-accent-warm px-3 py-1 text-xs font-medium text-background"
+          className="shrink-0 rounded-[16px] bg-accent-warm px-3 py-1 text-xs font-medium text-background"
         >
           New Check-in
         </Link>
@@ -126,24 +126,22 @@ function JourneyOverview() {
       </p>
 
       {/* Phase timeline */}
-      <div className="mt-6 flex items-center gap-2">
-        <PhaseBox
-          label="Phase 1 — Preparation"
-          completedAt={journey.phase1?.completedAt ?? null}
-          linkTo="/journey/$id/phase1"
-          linkParams={{ id: journey.id }}
-        />
-        <span className="text-text-secondary">→</span>
-        <PhaseBox
-          label="Phase 2 — Experience"
-          completedAt={journey.phase2?.completedAt ?? null}
-          linkTo="/journey/$id/phase2"
-          linkParams={{ id: journey.id }}
-        />
-        <span className="text-text-secondary">→</span>
-        <div className="flex-1">
-          <Phase3Section journey={journey} />
+      <div className="mt-6 flex flex-col gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <PhaseBox
+            label="Phase 1 — Preparation"
+            completedAt={journey.phase1?.completedAt ?? null}
+            linkTo="/journey/$id/phase1"
+            linkParams={{ id: journey.id }}
+          />
+          <PhaseBox
+            label="Phase 2 — Experience"
+            completedAt={journey.phase2?.completedAt ?? null}
+            linkTo="/journey/$id/phase2"
+            linkParams={{ id: journey.id }}
+          />
         </div>
+        <Phase3Section journey={journey} />
       </div>
 
       {/* Actions */}

@@ -413,15 +413,6 @@ function Phase3Conversation({ journeyId, entryId }: Phase3ConversationProps) {
   if (isComplete && tripSummary) {
     return (
       <div className="flex min-h-[calc(100dvh-56px)] flex-col items-center justify-center p-8">
-        <div className="mb-12 self-start">
-          <Link
-            to="/journey/$id"
-            params={{ id: journeyId }}
-            className="text-sm text-text-secondary transition-colors hover:text-accent-warm"
-          >
-            &larr; Back to journey
-          </Link>
-        </div>
         <TripSummaryDisplay
           summary={tripSummary}
           journeyId={journeyId}
@@ -433,18 +424,7 @@ function Phase3Conversation({ journeyId, entryId }: Phase3ConversationProps) {
 
   // -- Active conversation --
   return (
-    <div className="flex min-h-[calc(100dvh-56px)] flex-col p-8 md:p-12">
-      {/* Header */}
-      <div className="mb-4">
-        <Link
-          to="/journey/$id"
-          params={{ id: journeyId }}
-          className="text-sm text-text-secondary transition-colors hover:text-accent-warm"
-        >
-          &larr; Back to journey
-        </Link>
-      </div>
-
+    <div className="flex min-h-[calc(100dvh-56px)] flex-col px-4 py-6 md:p-12">
       <div className="mb-2 text-center">
         <h1 className="text-2xl font-semibold tracking-tight text-text-primary">
           Over Me
