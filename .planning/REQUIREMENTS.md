@@ -84,15 +84,15 @@ Requirements for Claude Code Proxy Integration milestone.
 
 ### Proxy Server
 
-- [ ] **PROXY-01**: Claude-code-proxy server cloned, configured, and running (locally or on a hosted platform like Railway/Fly.io)
-- [ ] **PROXY-02**: Proxy configured with correct API keys and model routing (SMALL_MODEL targets Claude Haiku)
-- [ ] **PROXY-03**: Proxy exposes an endpoint compatible with the Anthropic Messages API format
+- [x] **PROXY-01**: Claude-code-proxy server cloned, configured, and running (locally or on a hosted platform like Railway/Fly.io)
+- [x] **PROXY-02**: Proxy configured with correct API keys and model routing (SMALL_MODEL targets Claude Haiku)
+- [x] **PROXY-03**: Proxy exposes an endpoint compatible with the Anthropic Messages API format
 
 ### App Integration
 
-- [ ] **APINT-01**: `api/chat.ts` updated to use configurable base URL (`ANTHROPIC_BASE_URL` env var) instead of hardcoded Anthropic API endpoint
-- [ ] **APINT-02**: When `ANTHROPIC_BASE_URL` is set, all AI requests route through the proxy; when unset, direct Anthropic calls work as fallback
-- [ ] **APINT-03**: `.env.example` updated to document the new `ANTHROPIC_BASE_URL` variable
+- [x] **APINT-01**: `api/chat.ts` updated to use configurable base URL (`ANTHROPIC_BASE_URL` env var) instead of hardcoded Anthropic API endpoint
+- [x] **APINT-02**: When `ANTHROPIC_BASE_URL` is set, all AI requests route through the proxy; when unset, direct Anthropic calls work as fallback
+- [x] **APINT-03**: `.env.example` updated to document the new `ANTHROPIC_BASE_URL` variable
 
 ### Validation
 
@@ -188,12 +188,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NAV-01 | Phase 6 | Complete |
 | NAV-02 | Phase 6 | Complete |
 | NAV-03 | Phase 6 | Complete |
-| PROXY-01 | Phase 7 | Pending |
-| PROXY-02 | Phase 7 | Pending |
-| PROXY-03 | Phase 7 | Pending |
-| APINT-01 | Phase 7 | Pending |
-| APINT-02 | Phase 7 | Pending |
-| APINT-03 | Phase 7 | Pending |
+| PROXY-01 | Phase 7 | Complete |
+| PROXY-02 | Phase 7 | Complete |
+| PROXY-03 | Phase 7 | Complete |
+| APINT-01 | Phase 7 | Complete |
+| APINT-02 | Phase 7 | Complete |
+| APINT-03 | Phase 7 | Complete |
 | VAL-01 | Phase 8 | Pending |
 | VAL-02 | Phase 8 | Pending |
 | VAL-03 | Phase 8 | Pending |

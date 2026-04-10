@@ -142,9 +142,9 @@ Plans:
   3. Setting `ANTHROPIC_BASE_URL` in the Vercel app causes all `/api/chat` AI requests to flow through the proxy instead of directly to Anthropic
   4. When `ANTHROPIC_BASE_URL` is not set, the app falls back to direct Anthropic API calls with no behavior change
   5. `.env.example` documents `ANTHROPIC_BASE_URL` with clear usage instructions
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 Plans:
-- [ ] 07-01-PLAN.md — Configurable Anthropic provider in api/chat.ts, env var documentation, and proxy setup guide
+- [x] 07-01-PLAN.md — Configurable Anthropic provider in api/chat.ts, env var documentation, and proxy setup guide
 
 ### Phase 8: End-to-End Validation
 **Goal**: Both AI conversation phases produce correct adaptive questions and reliable score extraction when running through the proxy
@@ -169,5 +169,5 @@ Phases execute in numeric order: 7 -> 8
 | 4. Come Together (AI Pre-Trip) | v1.0 | 3/3 | Complete | 2026-04-10 |
 | 5. Over Me (Post-Trip Reflection) | v1.0 | 3/3 | Complete | 2026-04-10 |
 | 6. Comparison, Sessions & Navigation | v1.0 | 2/2 | Complete | 2026-04-10 |
-| 7. Proxy Server & App Integration | v1.1 | 0/1 | Not started | - |
+| 7. Proxy Server & App Integration | v1.1 | 1/1 | Complete   | 2026-04-10 |
 | 8. End-to-End Validation | v1.1 | 0/0 | Not started | - |
