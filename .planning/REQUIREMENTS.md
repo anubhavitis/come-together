@@ -36,8 +36,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **CT-01**: AI agent asks 10 adaptive free-text questions about user's mental state, life problems, and intention-setting
 - [x] **CT-02**: Questions adapt based on previous responses (AI decides next question from conversation context)
 - [x] **CT-03**: AI loading state with subtle animation, then full response revealed (not streamed)
-- [ ] **CT-04**: After 10 questions, AI generates one sentence for the user to remember during the trip
-- [ ] **CT-05**: Intention sentence displayed prominently and stored in Supabase
+- [x] **CT-04**: After 10 questions, AI generates one sentence for the user to remember during the trip
+- [x] **CT-05**: Intention sentence displayed prominently and stored in Supabase
 - [x] **CT-06**: AI responses map to SWEMWBS baseline scoring behind the scenes
 - [x] **CT-07**: Conversation persisted to Supabase after each answer (resume on return)
 - [x] **CT-08**: Warm, non-clinical conversational tone (system prompt calibration)
@@ -140,8 +140,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CT-01 | Phase 4 | Complete |
 | CT-02 | Phase 4 | Complete |
 | CT-03 | Phase 4 | Complete |
-| CT-04 | Phase 4 | Pending |
-| CT-05 | Phase 4 | Pending |
+| CT-04 | Phase 4 | Complete |
+| CT-05 | Phase 4 | Complete |
 | CT-06 | Phase 4 | Complete |
 | CT-07 | Phase 4 | Complete |
 | CT-08 | Phase 4 | Complete |
