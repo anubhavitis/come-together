@@ -96,9 +96,9 @@ Requirements for Claude Code Proxy Integration milestone.
 
 ### Validation
 
-- [ ] **VAL-01**: Phase 1 (Come Together) AI conversation works through the proxy — questions are adaptive, SWEMWBS scoring extracts correctly
-- [ ] **VAL-02**: Phase 3 (Over Me) AI conversation works through the proxy — cross-phase context feeds correctly, trip summary generates
-- [ ] **VAL-03**: Score extraction (`<!--SCORES:{...}-->` pattern) works reliably through the proxy with the target model
+- [x] **VAL-01**: Phase 1 (Come Together) AI conversation works through the proxy — questions are adaptive, SWEMWBS scoring extracts correctly
+- [x] **VAL-02**: Phase 3 (Over Me) AI conversation works through the proxy — cross-phase context feeds correctly, trip summary generates
+- [x] **VAL-03**: Score extraction (`<!--SCORES:{...}-->` pattern) works reliably through the proxy with the target model
 
 ## v2 Requirements
 
@@ -194,9 +194,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | APINT-01 | Phase 7 | Complete |
 | APINT-02 | Phase 7 | Complete |
 | APINT-03 | Phase 7 | Complete |
-| VAL-01 | Phase 8 | Pending |
-| VAL-02 | Phase 8 | Pending |
-| VAL-03 | Phase 8 | Pending |
+| VAL-01 | Phase 8 | Complete |
+| VAL-02 | Phase 8 | Complete |
+| VAL-03 | Phase 8 | Complete |
 
 **Coverage:**
 - v1 requirements: 43 total (all complete)

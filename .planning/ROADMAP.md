@@ -156,7 +156,7 @@ Plans:
   3. Score extraction succeeds on at least 3 consecutive test conversations without parsing failures
 **Plans:** 1 plan
 Plans:
-- [ ] 08-01-PLAN.md — Integration test suite validating AI conversations and score extraction through proxy
+- [x] 08-01-PLAN.md — Integration test suite validating AI conversations and score extraction through proxy
 
 ## Progress
 
