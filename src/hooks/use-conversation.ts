@@ -116,7 +116,10 @@ export function useConversation(journeyId: string) {
 
     try {
       const token = await getAuthToken()
-      const rawMessage = await callChatApi([], token)
+      const rawMessage = await callChatApi(
+        [{ role: 'user', content: 'Hello, I am here to begin our conversation. Please ask me your first question.' }],
+        token,
+      )
       const { swemwbs } = parseScoresFromResponse(rawMessage)
       const cleanContent = stripScoresFromResponse(rawMessage)
 

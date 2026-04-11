@@ -161,7 +161,10 @@ export function usePhase3Conversation(journeyId: string, entryId: string) {
 
     try {
       const token = await getAuthToken()
-      const rawMessage = await callChatApi([], token)
+      const rawMessage = await callChatApi(
+        [{ role: 'user', content: 'Hello, I am here to reflect on my experience. Please ask me your first question.' }],
+        token,
+      )
       const { integrationEngaged, integrationExperienced } = parseScoresFromResponse(rawMessage)
       const cleanContent = stripScoresFromResponse(rawMessage)
 
