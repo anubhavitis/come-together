@@ -127,7 +127,7 @@ export async function POST(request: Request) {
   // 3. Generate AI response via claude-max-api-proxy
   try {
     const result = await generateText({
-      model: openai(AI_MODEL),
+      model: openai.chat(AI_MODEL),
       system: systemPrompt,
       messages,
     })
