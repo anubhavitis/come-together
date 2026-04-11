@@ -154,7 +154,9 @@ Plans:
   1. A complete Phase 1 (Come Together) conversation through the proxy produces adaptive questions and extracts SWEMWBS scores via the `<!--SCORES:{...}-->` pattern
   2. A complete Phase 3 (Over Me) conversation through the proxy receives cross-phase context and generates a trip summary
   3. Score extraction succeeds on at least 3 consecutive test conversations without parsing failures
-**Plans**: TBD
+**Plans:** 1 plan
+Plans:
+- [ ] 08-01-PLAN.md — Integration test suite validating AI conversations and score extraction through proxy
 
 ## Progress
 
@@ -170,4 +172,4 @@ Phases execute in numeric order: 7 -> 8
 | 5. Over Me (Post-Trip Reflection) | v1.0 | 3/3 | Complete | 2026-04-10 |
 | 6. Comparison, Sessions & Navigation | v1.0 | 2/2 | Complete | 2026-04-10 |
 | 7. Proxy Server & App Integration | v1.1 | 1/1 | Complete   | 2026-04-10 |
-| 8. End-to-End Validation | v1.1 | 0/0 | Not started | - |
+| 8. End-to-End Validation | v1.1 | 0/1 | In Progress | - |
