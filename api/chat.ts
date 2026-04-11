@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import { generateText } from 'ai'
-import { createAnthropic } from '@ai-sdk/anthropic'
+import { createOpenAI } from '@ai-sdk/openai'
 
 const supabaseUrl = process.env.SUPABASE_URL
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -13,9 +13,13 @@ const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
   auth: { autoRefreshToken: false, persistSession: false },
 })
 
-const anthropic = createAnthropic({
-  baseURL: process.env.ANTHROPIC_BASE_URL || 'https://api.anthropic.com/v1',
-  apiKey: process.env.ANTHROPIC_API_KEY || '',
+// Use claude-max-api-proxy (OpenAI-compatible) which routes through Claude CLI
+const AI_BASE_URL = process.env.AI_BASE_URL || 'http://localhost:3456/v1'
+const AI_MODEL = process.env.AI_MODEL || 'claude-haiku-4'
+
+const openai = createOpenAI({
+  baseURL: AI_BASE_URL,
+  apiKey: 'not-needed',
 })
 
 const PHASE1_SYSTEM_PROMPT = `You are a warm, thoughtful companion helping someone prepare for a meaningful personal experience. You are NOT a therapist or a clinical interviewer. Think of yourself as a close friend who asks caring questions.
@@ -120,23 +124,23 @@ export async function POST(request: Request) {
     systemPrompt = PHASE1_SYSTEM_PROMPT
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY
-  if (!apiKey) {
+  // 3. Generate AI response via claude-max-api-proxy
+  try {
+    const result = await generateText({
+      model: openai(AI_MODEL),
+      system: systemPrompt,
+      messages,
+    })
+
     return new Response(
-      JSON.stringify({ error: 'ANTHROPIC_API_KEY not configured' }),
+      JSON.stringify({ message: result.text }),
+      { headers: { 'Content-Type': 'application/json' } },
+    )
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'AI generation failed'
+    return new Response(
+      JSON.stringify({ error: message }),
       { status: 500, headers: { 'Content-Type': 'application/json' } },
     )
   }
-
-  // 3. Generate AI response
-  const result = await generateText({
-    model: anthropic('claude-3-5-haiku-20241022'),
-    system: systemPrompt,
-    messages,
-  })
-
-  return new Response(
-    JSON.stringify({ message: result.text }),
-    { headers: { 'Content-Type': 'application/json' } },
-  )
 }
