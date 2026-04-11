@@ -395,7 +395,27 @@ function Phase3Conversation({ journeyId, entryId }: Phase3ConversationProps) {
   if (!isComplete && messages.length === 0 && isLoading) {
     return (
       <div className="flex min-h-[calc(100dvh-56px)] flex-col items-center justify-center p-8">
+        <p className="mb-4 text-sm text-text-secondary">Preparing your reflection...</p>
         <LoadingIndicator />
+      </div>
+    );
+  }
+
+  // -- Error state (no messages loaded, API failed) --
+  if (!isComplete && messages.length === 0 && error) {
+    return (
+      <div className="flex min-h-[calc(100dvh-56px)] flex-col items-center justify-center p-8 text-center">
+        <p className="text-lg font-semibold text-text-primary">Could not start reflection</p>
+        <p className="mt-2 max-w-sm text-sm text-danger">{error}</p>
+        <p className="mt-2 max-w-sm text-xs text-text-secondary">
+          This usually means the AI service is unavailable. Check that your API key is configured and try again.
+        </p>
+        <button
+          onClick={() => window.location.reload()}
+          className="mt-6 rounded-[16px] bg-accent-warm px-6 py-2 text-sm font-medium text-background"
+        >
+          Retry
+        </button>
       </div>
     );
   }
