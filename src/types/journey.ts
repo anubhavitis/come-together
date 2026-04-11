@@ -42,9 +42,16 @@ export type Context = {
   sitter: string
 }
 
+export type Phase2Response = {
+  questionId: string
+  selectedOptionId: string | null
+  freeText: string
+}
+
 export type RawImpressions = {
   freeWrite: string
   metaphor: string
+  responses?: Phase2Response[]
 }
 
 export type Meq30 = Record<
@@ -111,6 +118,13 @@ export type Journey = {
   updatedAt: string
 }
 
+export type ConversationMessage = {
+  role: 'user' | 'assistant'
+  content: string
+  questionNumber: number
+  scores?: Partial<Swemwbs>
+}
+
 export type Phase1 = {
   id: string
   journeyId: string
@@ -120,6 +134,7 @@ export type Phase1 = {
   innerLandscapeRatings: InnerLandscapeRatings
   intentions: Intentions
   context: Context
+  conversation: ConversationMessage[]
   updatedAt: string
 }
 
@@ -136,6 +151,13 @@ export type Phase2 = {
   updatedAt: string
 }
 
+export type Phase3ConversationMessage = {
+  role: 'user' | 'assistant'
+  content: string
+  questionNumber: number
+  scores?: Record<string, number>
+}
+
 export type Phase3Entry = {
   id: string
   journeyId: string
@@ -148,6 +170,8 @@ export type Phase3Entry = {
   experiencedIntegration: ExperiencedIntegration
   intentionIntegration: IntentionIntegration
   openReflection: OpenReflection
+  conversation: Phase3ConversationMessage[]
+  tripSummary: string | null
   createdAt: string
   updatedAt: string
 }
