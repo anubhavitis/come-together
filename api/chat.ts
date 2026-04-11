@@ -19,7 +19,7 @@ const AI_MODEL = process.env.AI_MODEL || 'claude-haiku-4'
 
 const openai = createOpenAI({
   baseURL: AI_BASE_URL,
-  apiKey: 'not-needed',
+  apiKey: process.env.AI_API_KEY || 'sk-not-needed',
 })
 
 const PHASE1_SYSTEM_PROMPT = `You are a warm, thoughtful companion helping someone prepare for a meaningful personal experience. You are NOT a therapist or a clinical interviewer. Think of yourself as a close friend who asks caring questions.
