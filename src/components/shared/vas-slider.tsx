@@ -35,7 +35,7 @@ export function VASSlider({
           max={max}
           value={value ?? min}
           onChange={(e) => onChange(Number(e.target.value))}
-          className="h-2 w-full cursor-pointer appearance-none rounded-full bg-card accent-accent-warm"
+          className="h-2 w-full cursor-pointer appearance-none rounded-full bg-card accent-accent-warm focus:ring-2 focus:ring-focus focus:ring-offset-2 focus:ring-offset-background focus:outline-none"
         />
         {maxLabel && (
           <span className="text-xs text-text-secondary shrink-0">{maxLabel}</span>

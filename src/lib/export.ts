@@ -74,7 +74,7 @@ export async function exportJourneyAsJson(journeyId: string): Promise<void> {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `inner-compass-${exported.journey.name?.toString().replace(/\s+/g, "-").toLowerCase() ?? "journey"}-${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = `ctrnom-${exported.journey.name?.toString().replace(/\s+/g, "-").toLowerCase() ?? "journey"}-${new Date().toISOString().slice(0, 10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
 }

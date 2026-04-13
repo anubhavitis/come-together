@@ -1,16 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0f172a;
-  --color-surface: #1e293b;
-  --color-card: #334155;
-  --color-text-primary: #e2e8f0;
-  --color-text-secondary: #94a3b8;
-  --color-accent-warm: #f59e0b;
-  --color-accent-cool: #818cf8;
+  --color-background: #111110;
+  --color-surface: #1c1c1a;
+  --color-card: #2a2a27;
+  --color-text-primary: #ede9e3;
+  --color-text-secondary: #91918c;
+  --color-accent-warm: #e60023;
+  --color-accent-cool: #e60023;
   --color-success: #34d399;
   --color-warning: #fb923c;
   --color-danger: #f87171;
+  --color-border: #3a3a36;
+  --color-border-hover: #4a4a44;
+  --color-focus: #e60023;
+
+  --default-font-family: "Inter", -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Inter", -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-heading: 28px;
+
+  --tracking-heading: -0.05em;
+
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-2xl: 40px;
+}
+
+h2, h3 {
+  letter-spacing: var(--tracking-heading);
 }
 
 body {

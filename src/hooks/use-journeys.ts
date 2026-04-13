@@ -23,6 +23,7 @@ function mapPhase1(row: Record<string, unknown>): Phase1 {
     innerLandscapeRatings: row.inner_landscape_ratings as Phase1['innerLandscapeRatings'],
     intentions: row.intentions as Phase1['intentions'],
     context: row.context as Phase1['context'],
+    conversation: (row.conversation ?? []) as Phase1['conversation'],
     updatedAt: row.updated_at as string,
   }
 }
@@ -55,6 +56,8 @@ function mapPhase3Entry(row: Record<string, unknown>): Phase3Entry {
     experiencedIntegration: row.experienced_integration as Phase3Entry['experiencedIntegration'],
     intentionIntegration: row.intention_integration as Phase3Entry['intentionIntegration'],
     openReflection: row.open_reflection as Phase3Entry['openReflection'],
+    conversation: (row.conversation ?? []) as Phase3Entry['conversation'],
+    tripSummary: (row.trip_summary ?? null) as string | null,
     createdAt: row.created_at as string,
     updatedAt: row.updated_at as string,
   }

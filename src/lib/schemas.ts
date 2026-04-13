@@ -20,6 +20,15 @@ const items30 = Array.from({ length: 30 }, (_, i) => `item${i + 1}`)
 
 export const swemwbsSchema = recordSchema(items7, 1, 5)
 
+export const conversationMessageSchema = z.object({
+  role: z.enum(['user', 'assistant']),
+  content: z.string(),
+  questionNumber: z.number().int().min(1).max(11),
+  scores: swemwbsSchema.optional(),
+})
+
+export const conversationSchema = z.array(conversationMessageSchema)
+
 export const innerLandscapeTextSchema = z.object({
   relationshipWithSelf: z.string().optional().default(''),
   prevalentEmotions: z.string().optional().default(''),
@@ -49,9 +58,16 @@ export const contextSchema = z.object({
   sitter: z.string().optional().default(''),
 })
 
+export const phase2ResponseSchema = z.object({
+  questionId: z.string(),
+  selectedOptionId: z.string().nullable(),
+  freeText: z.string().default(''),
+})
+
 export const rawImpressionsSchema = z.object({
   freeWrite: z.string().optional().default(''),
   metaphor: z.string().optional().default(''),
+  responses: z.array(phase2ResponseSchema).optional(),
 })
 
 export const meq30Schema = recordSchema(items30, 0, 5)
@@ -88,3 +104,12 @@ export const openReflectionSchema = z.object({
   letterToSelf: z.string().optional().default(''),
   understandNow: z.string().optional().default(''),
 })
+
+export const phase3ConversationMessageSchema = z.object({
+  role: z.enum(['user', 'assistant']),
+  content: z.string(),
+  questionNumber: z.number().int().min(1).max(11),
+  scores: z.record(z.string(), z.number()).optional(),
+})
+
+export const phase3ConversationSchema = z.array(phase3ConversationMessageSchema)

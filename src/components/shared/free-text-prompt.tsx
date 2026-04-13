@@ -39,7 +39,7 @@ export function FreeTextPrompt({
         onChange={handleChange}
         placeholder={placeholder}
         rows={3}
-        className="w-full resize-none rounded-lg border-2 border-card bg-surface px-3 py-2 text-sm text-text-primary placeholder-text-secondary focus:border-accent-cool focus:outline-none"
+        className="w-full resize-none rounded-[16px] border-2 border-border bg-surface px-3 py-2 text-sm text-text-primary placeholder-text-secondary focus:border-focus focus:ring-2 focus:ring-focus focus:ring-offset-2 focus:ring-offset-background focus:outline-none"
       />
     </div>
   );

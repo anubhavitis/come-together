@@ -29,7 +29,7 @@ export function RatingSlider({
             aria-checked={value === num}
             id={`${id}-${num}`}
             onClick={() => onChange(num)}
-            className={`min-h-[44px] min-w-[44px] rounded-lg border-2 text-sm font-medium transition-colors ${
+            className={`min-h-[48px] min-w-[48px] rounded-[16px] border-2 text-sm font-medium transition-colors focus:ring-2 focus:ring-focus focus:ring-offset-2 focus:ring-offset-background focus:outline-none ${
               value === num
                 ? "border-accent-warm bg-accent-warm/20 text-accent-warm"
                 : "border-card bg-surface text-text-secondary hover:border-text-secondary"
